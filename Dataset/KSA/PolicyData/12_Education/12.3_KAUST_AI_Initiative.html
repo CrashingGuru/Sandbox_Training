@@ -1,0 +1,1417 @@
+ <!DOCTYPE HTML> <html lang="en" dir='ltr'> <head><script type="text/html" id="sf-tracking-consent-manager">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<style>
+#tracking-consent-dialog {position: fixed; z-index: 999; bottom: 0; left: 0; right: 0; background-color: rgba(0,0,0,0.8); color: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); ; align-items: center;}
+#tracking-consent-dialog p{margin:0; font-family: "Raleway", sans-serif;font-size: 14px; text-align: center; flex-grow: 1;}
+#consent-message {margin: 0; flex: 1; }
+#tracking-consent-dialog-accept {background-color: #ffffff; color: #3f3f3f;border: none; padding: 10px 20px; border-radius: 0px;cursor: pointer;margin-left: 20px;transition: background-color 0.3s;}
+#tracking-consent-dialog-accept:hover {background-color: #dd9851;color: #fff;}
+#tracking-consent-dialog-reject { background-color: #ffffff;color: #3f3f3f; border: none;padding: 10px 20px; border-radius: 0px;cursor: pointer;margin-left: 20px;transition: background-color 0.3s;}
+#tracking-consent-dialog-reject:hover {background-color: #dd9851; color: #fff;}
+#tracking-consent-dialog-a:hover {background-color: #dd9851; color: #fff;}	
+#track {color: #dd9851;  text-decoration: none;   font-weight: normal}
+#track:hover {color: #f89c3d;  text-decoration: none;   font-weight: normal}
+.ar { direction: 'rtl'; }
+#tracking-consent-dialog.ar p{font-family: 'Helvetica Neue LT Arabic' !important; }
+#tracking-consent-dialog.ar #tracking-consent-dialog-accept, #tracking-consent-dialog.ar #tracking-consent-dialog-reject {margin-right: 20px; margin-left: 0px;}
+span.ara, .ar span.en { display: none; }
+.ar span.ara { display: inline; }
+    </style>
+<div id="tracking-consent-dialog"> 
+       <p>
+		<span class="en">This website uses cookies to ensure ease of use, enhance functionality, and for analytical purposes. Visit our <a href="https://www.kaust.edu.sa/en/privacy-notice/website-users"  target="new" id="track">Privacy Notice</a> for more information.</span>
+		<span class="ara">يستخدم هذا الموقع ملفات تعريف الارتباط (الكوكيز) لضمان سهولة الاستخدام، وتعزيز الأداء، وتحليل حركة المرور على الموقع.
+            قم بزيارة  <a href="https://kaust.edu.sa/ar/privacy-notice/website-users"  target="new" id="track">إشعار الخصوصية</a> الخاص بنا لمزيد من المعلومات.</span>
+    <button type="button" onclick="TrackingConsentManager.updateUserConsent(true)" id="tracking-consent-dialog-accept" class="btn btn-default">
+		<span class="en">Accept all cookies</span>
+		<span class="ara">قبول جميع ملفات تعريف الارتباط</span>
+	</button>
+    <button type="button" onclick="TrackingConsentManager.updateUserConsent(false)" id="tracking-consent-dialog-reject" class="btn btn-default">
+		<span class="en">Accept only essential cookies</span>
+		<span class="ara">قبول ملفات تعريف الارتباط الأساسية فقط</span>
+	</button></p>
+</div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WH8X0G7F1W"></script> 
+<script type="text/javascript">
+window.dataLayer = window.dataLayer || [];   function gtag(){dataLayer.push(arguments);}
+let acceptButton = document.getElementById('tracking-consent-dialog-accept');
+let rejectButton = document.getElementById('tracking-consent-dialog-reject');
+acceptButton && acceptButton.addEventListener('click', function() {
+  loadGoogleAnalytics(true);
+});
+
+rejectButton && rejectButton.addEventListener('click', function() {
+  loadGoogleAnalytics(false);
+});
+
+function getCookie(name) {
+  let nameEQ = name + "=";
+  let ca = document.cookie.split(';');
+  for(let i=0; i < ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+let trackingTriggered = false;
+function loadGoogleAnalytics(useCookies) {
+  gtag('js', new Date());
+  let consentValue = useCookies ? 'granted' : 'denied';
+  gtag('consent', trackingTriggered ? 'update' : 'default', {
+	  'ad_storage': consentValue,
+	  'ad_user_data': consentValue,
+	  'ad_personalization': consentValue,
+	  'analytics_storage': consentValue
+	});
+
+	gtag('config', 'G-WH8X0G7F1W');
+  trackingTriggered = true;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	loadGoogleAnalytics(getCookie('sf-tracking-consent') === 'true');
+	if(location.pathname.toLowerCase().includes('/ar')) {
+		let observer = new MutationObserver(() => {
+            let el = document.getElementById('tracking-consent-dialog');
+            if (el) {
+                el.setAttribute('dir', 'rtl');
+                el.classList.add('ar');
+                observer.disconnect();
+            }
+        });
+
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+	}
+});
+</script>
+</script><script type="text/javascript" src="/WebResource.axd?d=DzHrpQl5URXarFHAtrmzFhVFVNw5gvePsBPWKutgVqsc4UHt1l3JzKlnjx-me5pWv7Ds4XwLiNe5K7Gb0OWlmu-IRTpy2uLV2ca76QU-b13FC-z9GZrJO77b0I5lHjHGQ6UFV40ymG5WVWV4ud0hiKf1_R3yFs5v1pPXR3OX3_j0etOE5pyHxBZpMO5sfqQd0&amp;t=639137695720000000">
+
+</script>  <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> <meta http-equiv="Expires" content="0" /> <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> <meta name="msapplication-config" content="none" /> <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> <meta name="description" /> <script src="/ResourcePackages/KAUSTMain/assets/dist/js/jquery-2.2.3.min.js"></script> <script src=/ResourcePackages/KAUSTMain/assets/dist/js/Scripts.js?package=KAUSTMain&amp;v=639230406227326179></script> <link href=/ResourcePackages/KAUSTMain/assets/dist/css/Styles.css?package=KAUSTMain&amp;v=639230406227326179 rel="stylesheet" /> <!--[if lte IE 8]>
+                <script src="//html5shiv.googlecode.com/svn/trunk/html5.js">//<![CDATA[//]]></script>
+                <script src=/~/ResourcePackages/KAUSTMain/assets/js/vendor/css3-mediaqueries.min.js">//<![CDATA[//]]></script>
+                <link rel="stylesheet" href="~/ResourcePackages/KAUSTMain/assets/css/ie/base.css"/>
+                <link rel="stylesheet" href="~/ResourcePackages/KAUSTMain/assets/css/ie/landing.css"/>
+                <link rel="stylesheet" href="~/ResourcePackages/KAUSTMain/assets/css/ie/jquery.reject.css"/>
+                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript">//<![CDATA[//]]></script>
+                <script src="~/ResourcePackages/KAUSTMain/assets/js/ie/general.js">//<![CDATA[//]]></script>
+                <script src="~/ResourcePackages/KAUSTMain/assets/js/ie/landing.js">//<![CDATA[//]]></script>
+                <script src="~/ResourcePackages/KAUSTMain/assets/js/ie/jquery.reject.js">//<![CDATA[//]]></script>
+            <![endif]--> <link href=/ResourcePackages/KAUSTMain/assets/dist/css/sf-editor-reset.css?package=KAUSTMain&amp;v=639230406227326179 rel="stylesheet" /> <script src=/ResourcePackages/KAUSTMain/assets/dist/js/custom.js?package=KAUSTMain&amp;v=639230406227326179></script> <title>
+	Generative AI&#160;
+</title><meta property="og:title" content="Generative AI&#160;" /><meta property="og:url" content="https://www.kaust.edu.sa/research/generative-ai" /><meta property="og:type" content="website" /><meta property="og:site_name" content="KAUST" /><link href="/ResourcePackages/KAUSTMain/assets/revamp/styles/aos.css" media="all" rel="stylesheet" type="text/css" /><link href="/ResourcePackages/KAUSTMain/assets/revamp/styles/swiper-bundle.min.css" media="all" rel="stylesheet" type="text/css" /><link href="/ResourcePackages/KAUSTMain/assets/revamp/styles/output.css" media="all" rel="stylesheet" type="text/css" /><link href="/ResourcePackages/KAUSTMain/assets/revamp/dist/css/main.min.css" media="all" rel="stylesheet" type="text/css" /><style type="text/css" media="all">.fa.fa-twitter{
+	font-family:sans-serif;
+}
+.fa.fa-twitter::before{
+	content:"𝕏"!important;
+	font-size:1.2em!important;
+        font-weight:bold!important;
+}</style><style type="text/css" media="all">@media screen and (min-width: 788px) {
+    #s4-workspace .menu li.turquoise.has-submenu:hover > a, #s4-workspace .turquoise header .menu li.turquoise .section
+{
+    padding-right: 18px;
+    height:10px;
+
+}
+
+  html {
+    scroll-behavior: auto; /* Disable smooth scrolling */
+}
+</style><script type="text/javascript">
+<script>
+             function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function() {
+        const context = this;
+        const args = arguments;
+        if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function() {
+                if ((Date.now() - lastRan) >= limit) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+}
+
+window.addEventListener('scroll', throttle(function() {
+    // Your scroll handling logic
+}, 100));
+
+            <\/script>
+</script><script type="text/javascript">
+
+//<![CDATA[
+var MSOWebPartPageFormName = 'aspnetForm';
+var g_presenceEnabled = true;
+var g_wsaEnabled = false;
+var g_wsaQoSEnabled = false;
+var g_wsaQoSDataPoints = [];
+var g_wsaLCID = 1033;
+var g_wsaListTemplateId = 850;
+var g_wsaSiteTemplateId = 'BLANKINTERNET#2';
+var _fV4UI=true;var _spPageContextInfo = {webServerRelativeUrl: "\u002fen", webAbsoluteUrl: "https:\u002f\u002fwww.kaust.edu.sa\u002fen", siteAbsoluteUrl: "https:\u002f\u002fwww.kaust.edu.sa", serverRequestPath: "\u002fen\u002fPages\u002fdefault.aspx", layoutsUrl: "_layouts\u002f15", webTitle: "Home", webTemplate: "53", tenantAppVersion: "0", isAppWeb: false, Has2019Era: true, webLogoUrl: "_layouts\u002f15\u002fimages\u002fsiteicon.png", webLanguage: 1033, currentLanguage: 1033, currentUICultureName: "en-US", currentCultureName: "en-US", clientServerTimeDelta: new Date("2023-02-28T10:09:21.5155972Z") - new Date(), siteClientTag: "472$$15.0.5519.1000", crossDomainPhotosEnabled:false, webUIVersion:15, webPermMasks:{High:16,Low:196673},pageListId:"{4c04bd22-c74f-42d2-9f45-c017c22495b3}",pageItemId:1, pagePersonalizationScope:1, alertsEnabled:true, customMarkupInCalculatedFieldDisabled: true, siteServerRelativeUrl: "\u002f", allowSilverlightPrompt:'True'};//]]>
+
+</script><meta name="Generator" content="Sitefinity 14.4.8152.0 DX" /><link rel="canonical" href="https://www.kaust.edu.sa/research/generative-ai" /><meta name="twitter:card" content="summary_large_image" /></head> <body> <!-- Google Tag Manager (noscript) --> <noscript> <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M53Q7H7"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe> </noscript> <!-- End Google Tag Manager (noscript) --> <style>
+        .RadDockZone:hover {
+            z-index: 9999 !important;
+        }
+    </style> <script src="/MainSiteAssets/scripts/init.js"></script> <div id="s4-workspace"> <div id="s4-bodyContainer" class=""> 
+<header id="Header_TBEA4ECA1004_Col00" class="sf_colsIn cf" data-sf-element="Container" data-placeholder-label="Header" style="background-color: rgb(255, 255, 255);">
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VGNT1HSSCZ"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-VGNT1HSSCZ'); </script><div id="Header_TBEA4ECA1005_Col00" class="sf_colsIn container" data-sf-element="Container">
+    <!-- Logo -->
+ <h1>
+            <a href="/">
+                <img src="/ResourcePackages/KAUSTMain/assets/dist/images/kaust-logo.svg" class="logo" /><span
+                    class="logo-title"></span>
+               
+                
+
+
+
+
+
+            <a href="" onclick="openLink('ar'); return false;" data-sf-role="language-selector-item"  style="height:1px;"><img src="/PublishingImages/homepage/arabic.png" class="mobile-lang" /></a>
+
+
+
+    <!--  -->
+<script src="https://use.fontawesome.com/e67ee2a2a0.js"></script>
+            </a>
+        </h1>
+        <a href="#" class="menu-trigger">
+            Menu
+        </a>
+          <style>
+        /* Button styling */
+        .transparent-button {
+            background-color: transparent; /* Makes the button transparent */
+            border: 2px solid #007bff; /* Blue border */
+            color: #007bff; /* Blue text */
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Hover effect */
+        .transparent-button:hover {
+            background-color: #007bff; /* Blue background on hover */
+            color: white; /* White text on hover */
+        }
+    </style>
+</div>
+<nav id="Header_TBEA4ECA1006_Col00" class="sf_colsIn" data-sf-element="Container" data-placeholder-label="Navigation"><div id="Header_TBEA4ECA1008_Col00" class="sf_colsIn panel" data-sf-element="Container">
+    <!-- Navigation -->
+<ul class="menu cf">
+    <li class="orange has-submenu">
+        <a href="/en/study" class="section">Study</a>
+        <div class="submenu-wrap">
+            <div class="submenu cf">
+                <a href="/en/study" class="mobile-tablet">
+                    <h2>Study</h2>
+                </a>
+                <!-- Only for Mobile Tablet view -->
+                <a href="/ar/study/student-central" style="
+  display: inline-flex;
+  align-items: right;
+  gap: 6px;
+  text-decoration: none;
+  color: #c97d10;
+  font-family: 'Raleway', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  float: right;
+  padding: 20px 12% 0 0;
+  display: none;
+">
+
+  <svg width="21" height="21" viewBox="0 0 24 24" fill="none"
+       stroke="#c97d10" stroke-width="1.5"
+       stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+    <circle cx="8" cy="10" r="2"/>
+    <path d="M5 17c0-2 1.5-3 3-3s3 1 3 3"/>
+    <line x1="14" y1="9" x2="19" y2="9"/>
+    <line x1="14" y1="13" x2="19" y2="13"/>
+  </svg>
+
+  Student Central
+
+</a>
+                <h2 class="story">KAUST offers the following degree programs</h2>
+                
+                <div class="col">
+                    <ul>
+                       
+                        <li><a href="/en/study/masters-program">Master's Program</a>
+                        </li>
+                        <li><a href="/en/study/phd-program">Ph.D. Program</a>
+                        </li>
+                    </ul>
+  
+                    <h2 class="submenu-head">Technology Innovation and Entrepreneurship  </h2>
+  
+                    <ul>
+                        <li><a href="https://tie.kaust.edu.sa/" target="_blank"> TIE Masters </a>
+                        
+                        </li>
+                    </ul>
+  
+  
+  
+                    <h2 class="submenu-head">Biological and Environmental Science and Engineering</h2>
+                    <ul>
+                        
+                        <li><a href="/en/study/division-programs#ense">Environmental Science and Eng.
+                                (EnSE)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#mars">Marine Science (MarS)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#plant-science">Plant Science (PS)</a>
+                        </li>
+                    </ul>
+                    
+                    <h2 class="submenu-head">Biomedical Sciences</h2>
+                    <ul>
+                        <li><a href="https://www.kaust.edu.sa/en/study/biomed/bioscience">Bioscience (B)</a>
+                        </li>
+                        <li><a href="https://www.kaust.edu.sa/en/study/biomed/bioengineering">Bioengineering (BioE)</a>
+                        </li>
+                    </ul>
+  
+                    
+  
+                    
+    
+    
+                </div>
+                <div class="col">
+                    
+                    <h2 class="submenu-head"> Computer, Electrical and Mathematical Science and Engineering
+                    </h2>
+  
+                    <ul>
+                        <li><a href="/en/study/division-programs#amcs">Applied Mathematics and Computational
+                                Science (AMCS)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#cs">Computer Science (CS)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#ee">Electrical and Computer Engineering
+                                (ECE)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#stat">Statistics (STAT)</a>
+                        </li>
+                    </ul>
+  
+                    <h2 class="submenu-head">Physical Science and Engineering </h2>
+  
+                    <ul>
+    
+                        <li><a href="/en/study/division-programs#ce">Chemical Engineering (CE)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#chem">Chemistry (Chem)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#esse">Earth System Science and Engineering (ESSE)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#mseap">Materials Science and Engineering and Applied Physics (MSEAP)</a>
+                        </li>
+                        <li><a href="/en/study/division-programs#me">Mechanical Engineering (ME)</a>
+                        </li>
+                    </ul>
+  
+  
+                </div>
+                
+                 <div class="col">
+                     
+                     <!--<h2 class="submenu-head">Academic Office</h2>-->
+  
+                    <ul>
+                        <li><a href="https://courses.kaust.edu.sa/" target="_blank">Courses</a>
+                        </li>
+                        <li><a href="https://vsrp.kaust.edu.sa/" target="_blank">Internships</a>
+                        </li>
+                        <li><a href="https://gds.kaust.edu.sa/" target="_blank">Student Affairs</a>
+                        </li>
+                        <li><a href="https://registrar.kaust.edu.sa/" target="_blank">Registrar</a>
+                        </li>
+                        <li><a href="https://registrar.kaust.edu.sa/calendars" target="_blank">Academic
+                                Calendar</a>
+                        </li>
+                        <li><a href="https://www.kaust.edu.sa/docs/kaustlibraries/documents/downloads/kaust_student-handbook_25_26.pdf" target="_blank">Student
+                                Handbook</a>
+                        </li>
+                        
+                        <li><a href="https://facultylife.kaust.edu.sa/" target="_blank">Faculty Affairs</a>
+                        </li>
+                        <li><a href="https://alumni.kaust.edu.sa/" target="_blank">Alumni Affairs</a>
+                        </li>
+                        <li><a href="https://library.kaust.edu.sa/" target="_blank">KAUST Library</a>
+                        </li>
+                        <li><a href="https://enrichment.kaust.edu.sa/home/" target="_blank">Enrichment
+                                Programs</a>
+                        </li>
+                        
+                        
+  
+                    </ul>
+  
+  
+                    <h2 class="submenu-head">Expanding Knowledge</h2>
+  
+                    <ul>
+                        <li><a href="/en/study/faculty">KAUST Faculty</a>
+                        </li>
+  
+                        <li><a href="https://www.kaust.edu.sa/en/study/commencement" >Commencement</a>
+                        </li>
+                    </ul>
+  
+                    <p><a href="https://admissions.kaust.edu.sa" target="_blank" class="menu-button">Apply
+                            to KAUST</a>
+                    </p>
+  
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="turquoise has-submenu">
+        <a href="/en/research" class="section">Research</a>
+        <div class="submenu-wrap">
+            <div class="submenu cf">
+                <a href="/en/research" class="mobile-tablet">
+                    <h2>Research</h2>
+                </a>
+                <!-- Only for Mobile Tablet view -->
+                <h2 class="story">KAUST advances science and technology through distinctive and
+                    collaborative
+                    research.</h2>
+  
+                <div class="col">
+                    <h2 class="submenu-head">Centers of Excellence</h2>
+    
+                    <ul>
+    
+                        <li><a href="https://www.kaust.edu.sa/en/research/generative-ai">Generative AI </a></li>
+                        <li><a href="https://www.kaust.edu.sa/en/research/renewable-energy-and-storage-technologies/">Renewable Energy and Storage Technologies </a></li>
+                        <li><a href="https://www.kaust.edu.sa/en/research/smart-health">Smart Health</a></li>
+                        <li><a href="https://www.kaust.edu.sa/en/research/sustainable-food-security">Sustainable Food Security </a></li>
+                         
+                    </ul>
+                    
+                    <h2 class="submenu-head">Research Support</h2>
+                    <ul>
+                        <li><a href="/en/research/support#lem">Lab Equipment Management (LEM)</a></li>
+                        <li><a href="/en/research/support#ps">Postdoctoral Support</a></li>
+                        <!-- 
+                        <li><a href="/en/research/support#aws">Research Publication Services (RPS)</a></li>
+                        -->
+                    </ul>
+                </div>
+  
+                <div class="col">
+                    <h2 class="submenu-head">Research in Academic Divisions</h2>
+                    <ul>
+                        <li><a href="https://bese.kaust.edu.sa/" target="_blank">Biological and Environmental
+                                Science and
+                                Engineering</a>
+                        </li>
+                        <li><a href="https://www.kaust.edu.sa/en/study/biomed">Biomedical Sciences Division</a>
+                        </li>
+                        <li><a href="https://cemse.kaust.edu.sa/" target="_blank">Computer, Electrical and
+                                Mathematical
+                                Science and Engineering</a>
+                        </li>
+                        <li><a href="https://pse.kaust.edu.sa/" target="_blank">Physical Science and Engineering
+                                Division</a>
+                        </li>
+                    </ul>
+  
+                    
+  
+                    <h2 class="submenu-head">Research Funding</h2>
+                    <ul>
+                        <li><a href="https://rfs.kaust.edu.sa/" target="_blank">Research Funding and Services</a></li>
+                        <li><a href="https://rtp.kaust.edu.sa/" target="_blank">Research Translation &
+                                Partnership
+                                (RTP)</a></li>
+                        <li> </li>
+                        <li> </li>
+                    </ul>
+  
+  
+                </div>
+  
+                <div class="col">
+                    <h2 class="submenu-head">Research Facilities</h2>
+                    <ul>
+                      <!-- <li><a href="/en/research/shaheen">Shaheen III Supercomputer</a></li>     -->
+                  <li><a href="/en/research/research-platforms">Research Platforms</a></li>
+       <li><a href="/en/research/core-labs">Core Labs</a></li>
+                        
+                    </ul>
+  
+                    <h2 class="submenu-head">More on Research</h2>
+                    <ul>
+                        <li><a href="/en/about/administration/Office-of-the-Vice-President-for-Research">VP
+                                for
+                                Research</a></li>
+                        
+                        <li><a href="/en/research/latest">Latest Publications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="yellow has-submenu">
+        <a href="/en/innovate" class="section">Innovate</a>
+        <div class="submenu-wrap">
+            <div class="submenu cf">
+                <a href="/en/innovate" class="mobile-tablet">
+                    <h2>Connecting Research & Industry</h2>
+                </a>
+                <!-- Only for Mobile Tablet view -->
+                <h2 class="story">From research to impact, building the Kingdom’s
+  future through innovation and partnerships</h2>
+  
+                <div class="col-two">
+                    <h2 class="submenu-head">The National Transformation Institute (NTI)</h2>
+                    <ul>
+                        <li><a href="/en/innovate#about-nti">About the NTI</a>
+                        </li>
+                        <li><a href="/en/innovate#national-projects">National Projects</a>
+                        </li>
+                        <li><a href="https://www.kaust.edu.sa/en/innovate#partnerships">Partnerships 
+                                </a>
+                        </li>
+  
+                    </ul>
+                </div>
+                <div class="col-two-last">
+                    <h2 class="submenu-head">&nbsp;</h2>
+                    <ul>
+                        <li><a href="/en/innovate#commercialization">Commercialization and Consultancy</a>
+                        </li>
+                        <li><a href="/en/innovate#innovation-ecosystem">Innovation Ecosystem </a>
+                        </li>
+                        <li><a href="/en/innovate#innovation-hubs">Innovation Hubs</a>
+                        </li>
+      
+        
+      
+      
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="green has-submenu">
+        <a href="/en/live" class="section">Live</a>
+        <div class="submenu-wrap">
+            <div class="submenu cf">
+                <a href="/en/live" class="mobile-tablet">
+                    <h2>Live</h2>
+                </a>
+                <!-- Only for Mobile Tablet view -->
+                <h2 class="story">KAUST provides its community members with both rewarding career
+                    opportunities and
+                    a wide range of community services to make life on campus enjoyable</h2>
+  
+                <div class="col">
+  
+                    <h2 class="submenu-head">Live at KAUST</h2>
+                    <ul>
+                        <li><a href="https://communitylife.kaust.edu.sa/" target="_blank">Community Life</a>
+                        </li>
+                        <li><a href="https://kaust.edu.sa/en/live/school-and-daycare/kaust-school"
+                                target="_blank">The KAUST Schools</a></li>
+  
+  
+                    </ul>
+  
+                </div>
+                <div class="col">
+                    <h2 class="submenu-head">&nbsp;</h2>
+                    <ul>
+  
+                        <li><a href="https://www.kaust.edu.sa/en/live/services/health-and-wellness">KAUST
+                                Health</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="col">
+  
+  
+                </div>
+                <div class="col">
+                    <p><a href="/en/live/moving-to-kaust" class="menu-button">Moving to KAUST</a></p>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="secondary has-submenu blue">
+        <a href="/en/about" class="section">About</a>
+        <div class="submenu-wrap">
+            <div class="submenu cf">
+                <a href="/en/about" class="mobile-tablet">
+                    <h2>About KAUST</h2>
+                </a>
+                <!-- Only for Mobile Tablet view -->
+                <h2 class="story">KAUST is a graduate research university of science and technology renowned
+                    by
+                    global benchmarks</h2>
+  
+                <div class="col">
+                    <h2 class="submenu-head">KAUST Overview</h2>
+                        <ul>
+                            <li><a href="/en/about/">About KAUST</a></li>
+                            <li><a href="/en/about/our-strategy">Our Strategy</a></li>
+                            <li><a href="/en/about/our-impact">Our Impacts</a></li>
+                            <li><a href="/en/about/administration/board-trustees">Board of Trustees</a></li>
+                            <li><a href="/en/about/administration/president"> Office of the President & CAO</a></li>
+                            <li><a
+                                    href="/en/about/administration/Office-of-the-Vice-President-for-Research">Office of the Senior Vice President, Research</a></li>
+                            
+                            <li><a
+                                    href="https://www.kaust.edu.sa/en/about/administration/office-of-the-chief-administration-officer/">Office of the Executive Vice President</a></li>
+                            
+                             <li><a
+                                    href="https://www.kaust.edu.sa/en/about/policy-institute/">The Policy Institute at KAUST</a></li>
+                        </ul>
+                    <h2 class="submenu-head">Supporting the Kingdom's Vision</h2>
+                        <ul>
+                        
+                            <li><a
+                                    href="https://www.kaust.edu.sa/en/innovate#national-projects">Innovation
+                                    and Economic Development</a>
+                            </li>
+  
+                        </ul>
+  
+                        
+                </div>
+                <div class="col">
+  
+                    <h2 class="submenu-head">Careers</h2>
+                    <ul>
+                   
+                        <li><a href="/en/about/faculty-positions">Faculty Positions</a>
+                        </li>
+                        <li><a href="/en/about/ibn-rushd-postdoctoral-fellow-positions">Ibn Rushd
+                                Program</a>
+                        </li>
+                        <li><a href="/en/about/postdoc-researcher-positions">Researcher Positions</a>
+                        </li>
+       <li><a href="https://kgfp.kaust.edu.sa" target="_blank">Global Postdoctoral Fellowship</a>
+                        </li>
+                        
+                    </ul>
+  
+                    <h2 class="submenu-head">Explore</h2>
+                        <ul>
+                            <li><a href="/en/about/museum-of-science-technology-in-islam">KAUST Museum</a></li>
+                            <li><a href="/en/about/media-relations">Media Relations</a></li>
+                            <li><a href="/en/about/sustainability">KAUST Sustainability</a></li>
+                             
+                            <li><a href="https://maps.kaust.edu.sa/maps/" target="_blank">KAUST Interactive map</a></li>
+                       
+                            <li><a href="https://www.kaust.edu.sa/virtual-tour">KAUST Virtual Tour</a></li>
+                            <li><a href="/en/about/photos">KAUST Photos Galleries </a></li>
+                          <!--  <li><a href="/en/about/videos">KAUST Video Gallery</a></li>-->
+                        </ul>
+  
+                </div>
+                <div class="col">
+                    <p><a href="/en/about/openings" class="menu-button">Search for Jobs</a></p>
+                    <p><a href="/en/about/faculty-positions" class="menu-button">Faculty Positions</a></p>
+                    <p><a href="/en/about/vision" class="menu-button">Our Vision</a></p>
+                </div>
+            </div>
+        </div>
+    </li>
+    <!-- <li class="secondary blue">
+  <a href="https://discovery.kaust.edu.sa/en" target="_blank" class="section">Discovery</a>
+  </li> -->
+    <li class="secondary has-submenu blue">
+        <a href="/en/news" class="section">News</a>
+        <div class="submenu-wrap">
+            <div class="submenu cf">
+                <a href="/en/news" class="mobile-tablet">
+                    <h2>News</h2>
+                </a>
+                <!-- Only for Mobile Tablet view -->
+                <h2 class="story">Explore the latest Research and Events happening at KAUST</h2>
+  
+                <div class="col">
+                    <h2 class="submenu-head">KAUST News</h2>
+  
+                    <ul>
+                        <li><a href="/en/news">Latest Stories</a></li>
+  
+                       
+                    </ul>
+  
+                </div>
+                <div class="col">
+                    <h2 class="submenu-head">&nbsp;</h2>
+                    <ul>
+                        <li><a href="https://kaustcentral-eventscalendar-userwebsite.cfapps.eu20.hana.ondemand.com/dashboard" target="_blank">KAUST Events</a>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h2 class="submenu-head">The latest in Research News</h2>
+                    <p><a href="https://discovery.kaust.edu.sa/en" target="_blank" class="menu-button">KAUST
+                            Discovery</a> </p>
+                </div>
+            </div>
+        </div>
+    </li>
+    <a href="https://admissions.kaust.edu.sa" target="_blank"><span class="apply-kaust">Applying to
+            KAUST</span></a>
+    <a href="/en/visit"><span class="apply-kaust">Visit KAUST</span></a>
+  </ul>
+<div id="Header_TBEA4ECA1010_Col00" class="sf_colsIn tool-wrap" data-sf-element="Container" data-placeholder-label="Tool wrap"><ul id="Header_TBEA4ECA1011_Col00" class="sf_colsIn tools" data-sf-element="Container" data-placeholder-label="List"><li id="Header_TBEA4ECA1013_Col00" class="sf_colsIn" data-sf-element="Container" data-placeholder-label="List item">
+        <a href="" data-culture="ar" onclick="openLink('ar'); return false;" data-sf-role="language-selector-item" class="language">العربية</a>
+
+
+
+
+</li><li id="Header_TBEA4ECA1014_Col00" class="sf_colsIn" data-sf-element="Container" data-placeholder-label="List item">
+    <!-- Search trigger -->
+<a href="#" class="search-trigger icon ksticon-search-find">
+                        </a>
+</li>
+</ul>
+    <!-- Search -->
+<div class="search">
+                    <div class="form">
+                        <gcse:search></gcse:search>
+                    </div>
+                </div>
+</div>
+
+</div>
+
+</nav>
+</header>
+
+ <a href="#0" class="cd-top hidden-mobile hidden-tab">Top</a> <div data-name="ContentPlaceHolderMain"> 
+
+
+
+    <!-- Banner -->
+<section class="sub-header relative h-[70vh] md:h-[666px] lg:h-[47vh] md:mt-[173px]" id="subHeader">
+        <div class="before-1 absolute bottom-0 w-full h-[40vh] md:h-[430px] lg:h-[22.39583vw] z-10" alt="hero"></div>
+        <img class="absolute top-0 left-0 w-full h-full object-cover z-1" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_0_Header.jpg" alt="Background image">
+        <div class="main-container relative w-full h-full z-[50]">
+          <div class="header-text lg:!leading-[140%] absolute bottom-[10vh] md:bottom-[143px] lg:bottom-[7.447916vw] z-10 capitalize">
+			  
+            <p class="w-full block !text-white font-size-64 relative raleway-light" data-aos="fade-up" style="text-transform:none;"> Center of Excellence</p>
+            <h1 class="block !text-white font-size-68 !font-bold raleway-bold relative" data-aos="fade-down">Generative AI</h1>
+            
+          </div>
+        </div>
+      </section>
+    <!-- About + Mission -->
+<section class="more-about relative bg-white" id="moreAbout">
+    <div class="main-container relative w-full h-full z-[50] py-[50px] md:pt-[180px] lg:pt-[9.375vw] md:pb-[98px] lg:pb-[5.10416vw]">
+      <div class="main-wrapper w-full relative flex flex-col lg:flex-row items-center gap-[50px] md:gap-[149px] lg:gap-[7.760416vw]">
+        <div class="main-image hidden  lg:inline-block w-full md:w-[385px] lg:!w-[20.05vw]"><img class="!w-fulll block" src="/images/kaustlibraries/revamp/about/more/main.svg" data-aos="fade-in"></div>
+        <div class="text-wrap block lg:inline-block w-full md:w-[1245px] lg:w-[64.84375vw]">
+          
+            
+          <h2 class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br aos-init aos-animate" data-br="5,2" data-aos="fade-down">About the Center of
+Excellence <br></h2>
+            <p class="!text-[#575757] lg:!leading-[150%] font-size-24 !font-normal raleway-regular  "><br> 
+                The Center of Excellence for Generative AI (GenAI) is dedicated to placing Saudi Arabia at the forefront of AI research in the region and globally. Since its widespread rollout, GenAI has taken the world by storm through ease of access to various emerging applications such as Large Language Models (LLMs). GenAI is already on its way to transforming every aspect of our lives, and its adoption will be central to the future development of the Kingdom. To achieve this GenAI-powered future, the Center of Excellence for Generative AI has three primary objectives: <br> 
+<ul class="!text-[#575757] lg:!leading-[150%] font-size-24 !font-normal raleway-regular">
+    <li> To establish world-leading excellence in GenAI research by innovating the next generation of GenAI models endowed with properties needed for ubiquitous, efficient and trustworthy deployment. 
+</li>
+<li>To specialize these models to enable solutions in all four of the Kingdom’s research, development and innovation pillars: Health and Wellness, Sustainability and Essential Needs, Energy and Industrial Leadership, and Economies of the Future. 
+</li>
+<li>To deliver on the Kingdom’s ambitions to accelerate the adoption of GenAI by prioritizing translational research and talent development, accelerated by Center partners. 
+
+</li></ul>
+<p class="!text-[#575757] lg:!leading-[150%] font-size-24 !font-normal raleway-regular">
+    The Center will be the cornerstone for a vibrant GenAI ecosystem in the Kingdom that will sustain a flexible and effective model for onboarding partners and collaborators while meeting the aspirations of the Kingdom’s Vision 2030 through its research, development and innovation pillars. 
+
+</p>    
+              
+               
+              
+               
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- Welcome message + Video (Grey Backgorund) -->
+<section class="sub-research relative bg-[#F2F2F2]" id="subResearch2">
+    <div class="main-container relative w-full h-full z-[50] pt-[50px] md:pt-[20px] lg:pt-[2.375vw] pb-[50px] md:pb-[80px] lg:pb-[4vw]">
+        <div class="main-grid w-full relative flex flex-col lg:flex-row items-center gap-[20px] md:gap-[75px] lg:gap-[3.416vw] mt-[30px] md:mt-[72px] lg:mt-[3.75vw]">
+            <div class="content w-full lg:w-auto lg:flex-1 relative flex flex-col gap-[15px] md:gap-[33px] lg:gap-[1.718vw]">
+                <div class="">
+                    <h2 class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br aos-init aos-animate" data-br="5,2" data-aos="fade-down">Welcome Message from the <br>Chair </h2>
+                    <br>
+                    <p class="!text-[#575757] lg:!leading-[50%] font-size-24 !font-normal raleway-regular">
+                          “The impact of GenAI on the global economy, society and research is potentially staggering. While it heralds a future where machines augment human ingenuity rather than replace it, this journey is not without scientific, technical, developmental or upskilling challenges. The Center of Excellence for Generative AI is focused on addressing these challenges to unleash the full potential of this technology in Saudi Arabia and the world through core GenAI advancements. This approach will unlock unprecedented innovation, talent and market value.”  
+                    </p>
+                </div>
+            </div>
+            <div class="main-image block lg:inline-block lg:flex-1 md:w-[628px] lg:w-[32.7vw]">
+                <div>
+                    <iframe width="100%" height="410" src="https://www.youtube.com/embed/p1zj-Liyyfg?autoplay=1&loop=1&playlist=p1zj-Liyyfg" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Executive Leadership Profile -->
+
+<section class="sub-pillars relative bg-white" id="subPillars">
+    <div class="main-container relative w-full h-full z-[50] pt-[50px] md:pt-[180px] lg:pt-[9.375vw] pb-[50px] md:pb-[120px] lg:pb-[6.25vw]">
+        <div class="main-wrapper w-full relative flex flex-col lg:flex-row items-center gap-[50px] md:gap-[100px] lg:gap-[5.2083vw]">
+            <div class="text-wrap block lg:inline-block w-full md:w-[1014px] lg:w-[52.8125vw]">
+                <h2 class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br" data-br="5,2" data-aos="fade-down">Executive Committee and Leadership
+ </h2>
+                <div class="desc-p block w-full font-size-24  !font-normal raleway-regular  mt-[25px] md:mt-[48px] lg:mt-[2.5vw]">
+                    <!--p class="!text-[#575757]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p-->
+                </div>
+            </div>
+        </div>
+        <div class="main-grid w-full relative grid grid-cols-12 gap-[15px] md:gap-[20px] lg:gap-[1.0416vw] mt-[50px] md:mt-[71px] lg:mt-[3.697916vw]">
+            <a href="https://www.kaust.edu.sa/en/study/faculty/bernard-ghanem" class="pillar-item col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+                    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/bernard-v4.png" alt="Bernard Ghanem">
+                    <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+                    <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-[143.5px] px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+                        <h3 class="block relative w-full !p-0 !text-white font-size-20 !font-light raleway-light">
+                           	PROFESSOR <br/>BERNARD GHANEM <br>
+                            <span style="font-size: 16px;">Chair</span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.kaust.edu.sa/en/study/faculty/juergen-schmidhuber" class="pillar-item col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+                    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/smarthealth/ju-rgen-schmidhuber_.png" alt="Economies of the Future">
+                    <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+                    <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-[143.5px] px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+                        <h3 class="block relative w-full !p-0 !text-white font-size-20 !font-light raleway-light">
+                            PROFESSOR <br/> JUERGEN SCHMIDHUBER <br>
+                            <span style="font-size: 16px;">Co-Chair</span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.kaust.edu.sa/en/study/faculty/xin-gao" class="pillar-item col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+                    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/smarthealth/xin.png" alt="Economies of the Future">
+                    <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+                    <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-[143.5px] px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+                        <h3 class="block relative w-full !p-0 !text-white font-size-20 !font-light raleway-light">
+                            PROFESSOR <br/>XIN GAO<br>
+                            <span style="font-size: 16px;"> Executive Committee Member</span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+            <a href="https://www.kaust.edu.sa/en/study/faculty/matthew-mccabe" class="pillar-item col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+                    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/smarthealth/matthew.png" alt="MCCABE">
+                    <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+                    <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-[143.5px] px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+                        <h3 class="block relative w-full !p-0 !text-white font-size-20 !font-light raleway-light">
+                            PROFESSOR <br/> MATTHEW MCCABE<br>
+                            <span style="font-size: 16px;">Executive Committee Member </span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+			 <a href="https://www.kaust.edu.sa/en/study/faculty/magnus-rueping" class="pillar-item col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+                    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/smarthealth/magnus.png" alt="Magnus">
+                    <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+                    <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-[143.5px] px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+                        <h3 class="block relative w-full !p-0 !text-white font-size-20 !font-light raleway-light">
+                            PROFESSOR <br/>MAGNUS RUEPING<br>
+                            <span style="font-size: 16px;"> Executive Committee Member </span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+			 <a href="https://www.kaust.edu.sa/en/study/faculty/peter-wonka" class="pillar-item col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+                    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/smarthealth/wonka.jpeg" alt="Wonka">
+                    <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+                    <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-[143.5px] px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+                        <h3 class="block relative w-full !p-0 !text-white font-size-20 !font-light raleway-light">
+                            PROFESSOR <br/> PETER WONKA<br>
+                            <span style="font-size: 16px;"> Executive Committee Member</span>
+                        </h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+    <!-- Research Areas 5 -->
+
+<section class="sub-pillars relative bg-white" id="subPillars">
+    <div class="main-container relative w-full h-full z-[50] pt-[50px] md:pt-[10px] lg:pt-[5.375vw] pb-[50px] md:pb-[120px] lg:pb-[6.25vw]">
+      <div class="main-wrapper w-full relative flex flex-col lg:flex-row items-center gap-[50px] md:gap-[100px] lg:gap-[5.2083vw]">
+        <div class="text-wrap block lg:inline-block w-full">
+          <h2 class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br" data-br="5,2" data-aos="fade-down">Research and Translation Areas </h2>
+          <div class="desc-p block w-full font-size-24 !font-normal raleway-regular mt-[25px] md:mt-[48px] lg:mt-[2.5vw]">
+            <p class="!text-[#575757]">Staying true to the crosscutting and interdisciplinary nature of GenAI, the Center's goal is structured into five research areas distributed in a hub-spoke model. The GenAI Factory acts as the hub that innovates and develops general-purpose GenAI models, which in turn fuel the development of specialized solutions for applications in each RDI spoke area: Health and Wellness, Sustainability and Essential Needs, Energy and Industrial Leadership, and Economies of the Future. This model works through closely aligned synergy and continuous interaction between the research focus areas, heavily leveraging the unique human and computational resources at KAUST and tightly complemented by Center partner feedback, use cases and collaboration.  </p>
+          </div>
+        </div>
+      </div>
+      <div class="main-grid w-full relative grid grid-cols-12 gap-[15px] md:gap-[20px] lg:gap-[1.0416vw] mt-[50px] md:mt-[71px] lg:mt-[3.697916vw]">
+        <div class="pillar-item col-span-12 md:col-span-6 lg:col-span-4">
+          <a href="https://www.kaust.edu.sa/en/research/generative-ai/gen-ai-factory" class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="100">
+            <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_1.jpg" alt="Health &amp; Wellness">
+            <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+            <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-auto px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+              <h3 class="block relative w-full !p-0 !text-white font-size-24 !font-light raleway-light">GenAI Factory</h3>
+            </div>
+          </a>
+        </div>
+        <div class="pillar-item col-span-12 md:col-span-6 lg:col-span-4">
+          <a href="https://www.kaust.edu.sa/en/research/generative-ai/genai-applications-for-health-and-wellness" class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="300">
+            <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_2.jpg" alt="Sustainable Environment &amp; Essential Needs">
+            <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+            <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-auto px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+              <h3 class="block relative w-full !p-0 !text-white font-size-24 !font-light raleway-light">GenAI Applications for Health and Wellness</h3>
+            </div>
+          </a>
+        </div>
+        <div class="pillar-item col-span-12 md:col-span-6 lg:col-span-4">
+          <a href="https://www.kaust.edu.sa/en/research/generative-ai/genai-applications-for-sustainability-and-essential-needs" class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="500">
+            <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_3.jpg" alt="Energy &amp; Industrial Leadership">
+            <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+            <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-auto px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+              <h3 class="block relative w-full !p-0 !text-white font-size-24 !font-light raleway-light">GenAI Applications for Sustainability and Essential Needs</h3>
+            </div>
+          </a>
+        </div>
+        <div class="pillar-item col-span-12 md:col-span-6 lg:col-span-4">
+          <a href="https://www.kaust.edu.sa/en/research/generative-ai/genai-applications-for-energy-and-industrials" class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+            <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_4.jpg" alt="Economies of the Future">
+            <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+            <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-auto px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+              <h3 class="block relative w-full !p-0 !text-white font-size-24 !font-light raleway-light">GenAI Applications for Energy and Industrial Leadership</h3>
+            </div>
+          </a>
+        </div>
+        <div class="pillar-item col-span-12 md:col-span-6 lg:col-span-4">
+          <a href="https://www.kaust.edu.sa/en/research/generative-ai/genai-applications-for-economies-of-the-future" class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+            <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_5.jpg" alt="Economies of the Future">
+            <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+            <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-auto px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+              <h3 class="block relative w-full !p-0 !text-white font-size-24 !font-light raleway-light">GenAI Applications for Economies of the Future</h3>
+            </div>
+          </a>
+        </div>
+        <!-- <div class="pillar-item col-span-12 md:col-span-6 lg:col-span-4">
+          <a href="https://www.kaust.edu.sa/en/research/generative-ai/accelerating-genai-adoption-deployment-training-and-outreach" class="wrap w-full h-[350px] md:h-[480px] lg:h-[25vw] block relative overflow-hidden" data-aos="fade-in" data-aos-delay="700">
+            <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_6.jpg" alt="Economies of the Future">
+            <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[84.89%]"></div>
+            <div class="content flex flex-col gap-[10px] md:gap-[20px] lg:gap-[1.04166vw] absolute bottom-[15px] md:bottom-[29px] lg:bottom-[1.510416vw] left-0 w-full h-auto px-[15px] md:px-[24px] lg:px-[1.25vw] z-50">
+              <h3 class="block relative w-full !p-0 !text-white font-size-24 !font-light raleway-light">Accelerating GenAI Adoption: Deployment, Training, and Outreach</h3>
+            </div>
+          </a>
+        </div> -->
+      </div>
+    </div>
+  </section>
+    <!-- Content Text only - Full width (Grey Background) -->
+<section class="more-about relative bg-#f2f2f2" id="moreAbout">
+    <div class="main-container relative w-full h-full z-[50] py-[50px] md:pt-[180px] lg:pt-[9.375vw] md:pb-[98px] lg:pb-[5.10416vw]">
+        <div class="main-wrapper w-full relative flex flex-col items-center gap-[50px] md:gap-[149px] lg:gap-[7.760416vw]">
+            <div class="text-wrap block w-full md:w-[1245px] lg:w-full">
+                <h2 class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br" data-br="5,2" data-aos="fade-down">Deployment, Training and Outreach </h2>
+                <p class="!text-[#575757] lg:!leading-[150%] font-size-24 !font-normal raleway-regular"><br>The Center will enable widespread adoption of GenAI technologies through deployment, training and outreach efforts. It will propel its applied research output to higher technical readiness levels through a well-designed GenAI deployment platform that can be easily used by nonexperts. Moreover, the Center will develop and deliver GenAI residency programs at KAUST (through Center partners) and GenAI training programs for local talent outside KAUST (in conjunction with the KAUST Academy), as well as disseminate GenAI awareness and consultancy through a variety of outreach activities with Center partners. 
+                </p>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Partners -->
+<section class="sub-growing relative bg-white" id="subGrowing">
+    <img
+        class="before filped-ar inline-block absolute z-[1] w-[60vw] md:w-[706px] lg:w-[36.77vw] bottom-0 ltr:right-0 rtl:left-0"
+        src="/images/kaustlibraries/revamp/impact/growing/pattern.svg" />
+    <div
+        class="main-container relative w-full z-[50] text-left pt-[50px] md:pt-[180px] lg:pt-[9.375vw] pb-[50px] md:pb-[160px] lg:pb-[8.33vw]">
+        <div
+            class="title-wrap w-full md:w-[1070px] lg:w-[55.72916vw] mx-auto z-[50]"
+            style="padding-left: 0; margin-left: 0">
+            <h2
+                class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br"
+                data-br="5,2"
+                data-aos="fade-down"
+                style="text-align: left; margin-left: 0">
+                Partners and Supporters
+            </h2>
+        </div>
+        <p
+            class="!text-[#575757] lg:!leading-[150%] font-size-24 !font-normal raleway-regular"
+            style="text-align: left; margin-left: 0">
+            <br />The Center of Excellence for Generative AI remains active in expanding its partner consortium to
+            include organizations that align with its research, development, innovation and education agenda. The Center
+            is in regular discussions with its partners to develop opportunities for direct support, joint development
+            and training through the Center's research focus areas. We are committed to expanding this consortium
+            further with the goal of truly unlocking the potential of GenAI technology and driving local and global
+            impact through important real-world applications in health and wellness, sustainability, energy and
+            economies of the future.
+        </p>
+    </div>
+</section>
+    <!-- Latest News (4 Small news block + 1 Big event block with links + Grey Background) -->
+<section class="sub-more relative overflow-hidden !bg-white" id="subMore">
+        <div
+            class="main-before block absolute right-0 left-0 w-full h-full object-cover bottom-0 top-0 z-[1] opacity-50 bg-[#F2F2F2]"></div>
+        <div class="main-container relative w-full h-full z-[50] py-[50px] md:py-[194px] lg:py-[10.1vw]">
+            <div
+            class="main-wrapper w-full relative flex flex-col lg:flex-row items-center gap-[50px] md:gap-[100px] lg:gap-[5.2083vw]">
+            <div class="text-wrap block lg:inline-block w-full md:w-[948px] lg:w-[49.375vw]">
+                <div class="Container1640 flex justify-between items-center">
+                    <h2 class="block !p-0 font-size-64 !font-semibold raleway-semibold relative !text-[#191C1F]"
+                    data-aos="fade-down">News and Events</h2>
+                    <a href="https://www.kaust.edu.sa/en/news/center-of-excellence-generative-ai" class="anchor1 md:mt-[2.39583333333vw]">
+                        <span style="font-size: 25px;">All News</span>
+                        <svg alt="chevron" class="anchor__Chevron" style="display:inline-block; margin: -8px 0 0 15px;" width="20" height="20" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 12.855L5.32503 7.5L0 2.145L1.63936 0.5L8.61539 7.5L1.63936 14.5L0 12.855Z" fill="#000000"></path>
+                        </svg>
+                    </a>
+                </div> 
+             
+            </div>
+        </div>
+    
+            <div
+                class="content-wrapper w-full relative flex flex-col lg:flex-row items-center gap-[20px] md:gap-[31px] lg:gap-[1.61458vw] mt-[35px] md:mt-[48px] lg:mt-[2.5vw]">
+                <div
+                    class="sub-items w-full lg:w-[44.84375vw] lg:flex-1 flex lg:inline-flex flex-col lg:flex-row lg:flex-wrap gap-[20px] md:gap-[31px] lg:gap-[1.61458vw]">
+<!-- Event 1 -->
+<div class="sub-more-item block lg:inline-block lg:w-[48%]">
+    <a
+        class="wrap w-full h-[30vh] md:h-[377px] lg:h-[19.635416vw] block relative overflow-hidden"
+        href="https://www.kaust.edu.sa/en/news/rising-stars-global-impact-kaust-positioning-ksa-at-the-forefront-of-ai-innovation"
+        data-aos="fade-in"
+        data-aos-delay="550">
+        <img
+            class="block absolute top-0 left-0 w-full h-full object-cover z-[1]"
+            src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/news/2025/rising-stars_global-impact.jpg?sfvrsn=da68975a_1"
+            alt="News 1" />
+        <div class="before-1 block absolute right-0 left-0 w-full h-full object-cover bottom-0 z-[5] opacity-80 bg-[#000000]" style="background:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);"></div>
+<div class="before-2 arrow absolute inline-block w-[20px] md:w-[38px] lg:w-[1.979vw] h-[20px] md:h-[38px] lg:h-[1.979vw] top-[20px] md:top-[30px] lg:top-[1.5625vw] ltr:right-[15px] ltr:md:right-[20px] ltr:lg:right-[1.0416vw] rtl:left-[15px] rtl:md:left-[20px] rtl:lg:left-[1.0416vw] z-[50]">
+<svg width="100%" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M7.6001 33.1214L21.0902 19.5554L7.6001 5.98936L11.7532 1.82202L29.4257 19.5554L11.7532 37.2887L7.6001 33.1214Z" fill="white" />
+</svg>
+</div>
+        <div
+            class="content flex flex-col absolute bottom-[20px] md:bottom-[48px] lg:bottom-[2.5vw] left-0 w-full h-max px-[20px] md:px-[27px] lg:px-[1.40625vw] z-50">
+            <h4
+                class="block relative w-full !p-0 !text-white font-size-20 !font-bold raleway-bold lg:!leading-[150%]">
+                Rising stars, global impact: KSA at the forefront of AI innovation
+            </h4>
+        </div>
+    </a>
+</div>
+
+
+
+                    <div class="sub-more-item block lg:inline-block lg:w-[48%]">
+    <a class="wrap w-full h-[30vh] md:h-[377px] lg:h-[19.635416vw] block relative overflow-hidden aos-init aos-animate" href="/en/news/kaust-launches-four-pioneering-centers-of-excellence-to-address-key-national-and-international-priorities" data-aos="fade-in" data-aos-delay="100">
+    <img class="block absolute top-0 left-0 w-full h-full object-cover z-[1]" src="/images/kaustlibraries/publishingimages/news/coe-media-conf.jpg?sfvrsn=112c4c12_1" alt="News 1">
+    <div class="before-1 block absolute right-0 left-0 w-full h-full object-cover bottom-0 z-[5] opacity-50 bg-[#000000]" style="background: #000"></div>
+    <div class="before-2 arrow absolute inline-block w-[20px] md:w-[38px] lg:w-[1.979vw] h-[20px] md:h-[38px] lg:h-[1.979vw] top-[20px] md:top-[30px] lg:top-[1.5625vw] ltr:right-[15px] ltr:md:right-[20px] ltr:lg:right-[1.0416vw] rtl:left-[15px] rtl:md:left-[20px] rtl:lg:left-[1.0416vw] z-[50]">
+    <svg width="100%" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7.6001 33.1214L21.0902 19.5554L7.6001 5.98936L11.7532 1.82202L29.4257 19.5554L11.7532 37.2887L7.6001 33.1214Z" fill="white"></path>
+    </svg>
+    </div>
+    <div class="content flex flex-col absolute bottom-[20px] md:bottom-[48px] lg:bottom-[2.5vw] left-0 w-full h-max px-[20px] md:px-[27px] lg:px-[1.40625vw] z-50">
+    <h4 class="block relative w-full !p-0 !text-white font-size-20 !font-bold raleway-bold lg:!leading-[150%]">
+                                    KAUST Launches Four Pioneering Centers of Excellence to Address Key National and international Priorities
+    </h4>
+    </div>
+    </a>
+    </div>
+                    <div class="sub-more-item block lg:inline-block lg:w-[48%]">
+                        <a
+                            class="wrap w-full h-[30vh] md:h-[377px] lg:h-[19.635416vw] block relative overflow-hidden"
+                            href="https://www.kaust.edu.sa/en/news/kaust-center-of-excellence-for-generative-ai"
+                            data-aos="fade-in"
+                            data-aos-delay="250">
+                            <img
+                                class="block absolute top-0 left-0 w-full h-full object-cover z-[1]"
+                                src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/Gen-AI_0_Header.jpg"
+                                alt="KAUST Center of Excellence for Generative AI" />
+                            <div class="before-1 block absolute right-0 left-0 w-full h-full object-cover bottom-0 z-[5] opacity-80 bg-[#000000]" style="background:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);"></div>
+        <div class="before-2 arrow absolute inline-block w-[20px] md:w-[38px] lg:w-[1.979vw] h-[20px] md:h-[38px] lg:h-[1.979vw] top-[20px] md:top-[30px] lg:top-[1.5625vw] ltr:right-[15px] ltr:md:right-[20px] ltr:lg:right-[1.0416vw] rtl:left-[15px] rtl:md:left-[20px] rtl:lg:left-[1.0416vw] z-[50]">
+          <svg width="100%" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.6001 33.1214L21.0902 19.5554L7.6001 5.98936L11.7532 1.82202L29.4257 19.5554L11.7532 37.2887L7.6001 33.1214Z" fill="white" />
+          </svg>
+        </div>
+                            <div
+                                class="content flex flex-col absolute bottom-[20px] md:bottom-[48px] lg:bottom-[2.5vw] left-0 w-full h-max px-[20px] md:px-[27px] lg:px-[1.40625vw] z-50">
+                                <h4
+                                    class="block relative w-full !p-0 !text-white font-size-20 !font-bold raleway-bold lg:!leading-[150%]">
+                                    KAUST Center of Excellence for Generative AI
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="sub-more-item block lg:inline-block lg:w-[48%]">
+                        <a
+                            class="wrap w-full h-[30vh] md:h-[377px] lg:h-[19.635416vw] block relative overflow-hidden"
+                            href="https://www.kaust.edu.sa/en/news/return-of-socrates-kaust-developing-ai-education-for-personalized-learning"
+                            data-aos="fade-in"
+                            data-aos-delay="400">
+                            <img
+                                class="block absolute top-0 left-0 w-full h-full object-cover z-[1]"
+                                src="https://www.kaust.edu.sa/images/kaustlibraries/publishingimages/research/coe/genai/shutterstock_2458064531.jpg"
+                                alt="News 3" />
+                            <div class="before-1 block absolute right-0 left-0 w-full h-full object-cover bottom-0 z-[5] opacity-80 bg-[#000000]" style="background:linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);"></div>
+        <div class="before-2 arrow absolute inline-block w-[20px] md:w-[38px] lg:w-[1.979vw] h-[20px] md:h-[38px] lg:h-[1.979vw] top-[20px] md:top-[30px] lg:top-[1.5625vw] ltr:right-[15px] ltr:md:right-[20px] ltr:lg:right-[1.0416vw] rtl:left-[15px] rtl:md:left-[20px] rtl:lg:left-[1.0416vw] z-[50]">
+          <svg width="100%" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.6001 33.1214L21.0902 19.5554L7.6001 5.98936L11.7532 1.82202L29.4257 19.5554L11.7532 37.2887L7.6001 33.1214Z" fill="white" />
+          </svg>
+        </div>
+                            <div
+                                class="content flex flex-col absolute bottom-[20px] md:bottom-[48px] lg:bottom-[2.5vw] left-0 w-full h-max px-[20px] md:px-[27px] lg:px-[1.40625vw] z-50">
+                                <h4
+                                    class="block relative w-full !p-0 !text-white font-size-20 !font-bold raleway-bold lg:!leading-[150%]">
+                                    Return of Socrates: KAUST Developing AI Education for Personalized Learning
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="more-item block lg:inline-block">
+                    <div
+                        class="wrap w-full md:w-[748px] lg:w-[38.958vw] h-[50vh] md:h-[789px] lg:h-[41.09375vw] block relative overflow-hidden"
+                        data-aos="fade-in"
+                        data-aos-delay="700">
+                        <img
+                            class="block aboslute top-0 left-0 w-full h-full object-cover z-[1]"
+                            src="/images/kaustlibraries/revamp/about/more2/events-bg-ai-v2.jpg"
+                            alt="" />
+                        <div class="before block absolute right-0 left-0 w-full bottom-0 z-[5] h-[86.69%]"></div>
+                        <div
+                            class="content flex flex-col gap-[15px] md:gap-[32px] lg:gap-[1.6666vw] absolute bottom-[20px] md:bottom-[64px] lg:bottom-[3.3333vw] left-0 w-full h-max px-[20px] md:px-[54px] lg:px-[2.8125vw] z-50">
+                            <h3
+                                class="block relative w-full !p-0 !text-white font-size-40 !font-bold raleway-bold lg:!leading-[150%] break-me-br"
+                                data-br="3,3">
+                                Events
+                            </h3>
+    
+                            <div class="btns block w-full">
+                        <p class="block w-auto font-size-24 !font-normal raleway-bold !text-white !p-0 !m-0 text-1-lines overflow-hidden" style="margin-top: 15px; border-bottom: 1px solid white; display: inline-block;">9 - 11 February 2026 </p>
+                        <br>
+                        <a class="read-more-btn inline-flex items-center gap-[5px] md:gap-[8px] lg:gap-[0.4166vw] !m-0 aos-init aos-animate" data-aos="fade" href="https://www.kaust.edu.sa/events/rsais26/" target="_blank" > 
+                          <span class="inline-block  font-size-24 !font-normal raleway-regular  capitalize !text-[#ffffff]"> KAUST Rising Stars in AI Symposium 2026</span>
+                          <span class="icon inline-block w-[5px] md:w-[8px] lg:w-[0.4166vw]">
+                            <svg alt="chevron" width="100%" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M0 12.855L5.32503 7.5L0 2.145L1.63936 0.5L8.61539 7.5L1.63936 14.5L0 12.855Z" fill="#ffffff"></path>
+                            </svg>
+                          </span>
+                        </a>
+                      </div>
+    
+<!--
+                            <div class="btns block w-full">
+                        <p class="block w-auto font-size-24 !font-normal raleway-bold !text-white !p-0 !m-0 text-1-lines overflow-hidden" style="margin-top: 15px; border-bottom: 1px solid white; display: inline-block;">11 Sept 2024</p>
+                        <br>
+                        <a class="read-more-btn inline-flex items-center gap-[5px] md:gap-[8px] lg:gap-[0.4166vw] !m-0 aos-init aos-animate" data-aos="fade" href="https://x.com/KAUST_News/status/1833815424359714911" target="_blank" > 
+                          <span class="inline-block  font-size-24 !font-normal raleway-regular  capitalize !text-[#ffffff]"> The Global AI Summit GAIN, Riyadh</span>
+                          <span class="icon inline-block w-[5px] md:w-[8px] lg:w-[0.4166vw]">
+                            <svg alt="chevron" width="100%" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M0 12.855L5.32503 7.5L0 2.145L1.63936 0.5L8.61539 7.5L1.63936 14.5L0 12.855Z" fill="#ffffff"></path>
+                            </svg>
+                          </span>
+                        </a>
+                      </div>
+-->
+                            
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Block -->
+
+<section class="py-[50px] md:py-[9.375vw] bg-[#FFFFFF]">
+    <div class="dev1__Css max-w-[90vw] mx-auto text-center md:max-w-[46.9270833333vw]">
+        <h2 class="block !p-0 !text-[#191C1F] font-size-48 !font-medium raleway-medium lg:!leading-[130%] relative break-me-br" data-br="5,2" data-aos="fade-down">Contact Us</h2><BR>
+        <h4 data-aos="fade-down" class="text24 mt-[24px] md:mt-[2.5vw]">
+			Email: <a href="mailto:genaicoe.partnership@kaust.edu.sa" target="_blank">genaicoe.partnership@kaust.edu.sa</a></h4>
+		<h4 data-aos="fade-down" class="text24 mt-[24px] md:mt-[2.5vw]">
+			For media inquiries, please contact <a href="mailto:global.pr@kaust.edu.sa" target="_blank">global.pr@kaust.edu.sa</a></h4>
+	</div>             
+</section> </div> 
+
+    <!-- Footer -->
+<footer class="cf">
+    <!--<link href="#file.myfontastic.com/TU3H5EGeyFPMyAtdndMmVd/icons.css" rel="stylesheet">-->
+    <div class="container">
+        <div class="col">
+
+            <div class="quote">
+                <span class="quote-marks">”</span>
+                <q>KAUST shall be a beacon for peace, hope and reconciliation, and shall serve the people of the Kingdom and the world.</q>
+
+            </div>
+            <div class="king">
+                <p class="name">
+                    King Abdullah bin Abdulaziz Al Saud, 1924 – 2015</span>
+                </p>
+            </div>
+            <br />
+            <div class="social" style="float:left;margin:20px 0 0 20px;">
+                <h3>Follow us</h3>
+                <ul class="social">
+                  <li>
+                        <a href="https://x.com/KAUST_News" target="_blank" class="fa fa-twitter"></a>
+                    </li>
+                 
+                  <li>
+                        <a href="https://www.linkedin.com/company/kaust" target="_blank" class="fa fa-linkedin"></a>
+                    </li>
+                  <li>
+                        <a href="https://www.instagram.com/kaustofficial/" target="_blank" class="fa fa-instagram" aria-hidden="true"></a>
+                    </li>
+                    <li>
+                        <a href="https://www.facebook.com/KAUSTOfficial" target="_blank" class="fa fa-facebook"></a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/user/KAUSTvideo" target="_blank" class="fa fa-youtube"></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <div class="col hidden-mobile">
+
+            <h3>Study</h3>
+            <ul>
+                <li>
+                    <a href="https://admissions.kaust.edu.sa/" target="_blank">Apply to KAUST</a>
+                </li>
+                <li>
+                    <a href="/en/study/masters-program">M.S. Degree</a>
+                </li>
+                <li>
+                    <a href="/en/study/phd-program">Ph.D. Degree</a>
+                </li>
+                
+                <li>
+                    <a href="https://bese.kaust.edu.sa" target="_blank">BESE Division</a>
+                </li>
+                <li>
+                    <a href="https://www.kaust.edu.sa/en/study/biomed" target="_blank">BioMed Division</a>
+                </li>
+                <li>
+                    <a href="https://cemse.kaust.edu.sa" target="_blank">CEMSE Division</a>
+                </li>
+                <li>
+                    <a href="https://pse.kaust.edu.sa" target="_blank">PSE Division</a>
+                </li>
+                <li>
+                    <a href="https://www.kaust.edu.sa/en/research/research-platforms">Research Platforms</a>
+                </li>
+                <li>
+                    <a href="https://corelabs.kaust.edu.sa/" target="_blank">Core Labs</a>
+                </li>
+            </ul>
+
+            <h3>Living in KAUST</h3>
+            <ul>
+                <li>
+                    <a href="/en/live/community-life">Our Community</a>
+                </li>
+                <li>
+                    <a href="/en/live/school-and-daycare">School & Daycare</a>
+                </li>
+                <li>
+                    <a href="/en/live/services">Services</a>
+                </li>
+                <li>
+                    <a href="/en/live/Accommodation">Accommodation</a>
+                </li>
+
+            </ul>
+
+
+        </div>
+
+        <div class="col hidden-mobile">
+            <h3>Student Affairs</h3>
+            <ul>
+                <li>
+                    <a href="https://registrar.kaust.edu.sa/" target="_blank">Registrar’s Office</a>
+                </li>
+                <li>
+                    <a href="https://gds.kaust.edu.sa/" target="_blank">Student Affairs office</a>
+                </li>
+            </ul>
+
+            <h3>Expanding Knowledge</h3>
+            <ul>
+                <li>
+                    <a href="/en/study/enrichment-program-office">Enrichment Program Office</a>
+                </li>
+                <li>
+                    <a href="https://alumni.kaust.edu.sa/">Alumni Affairs</a>
+                </li>
+                <li>
+                    <a href="https://library.kaust.edu.sa/" target="_blank">KAUST Library</a>
+                </li>
+            </ul>
+            <h3>Latest</h3>
+            <ul>
+                <li>
+                    <a href="/en/news">Latest Stories</a>
+                </li>
+                <li>
+                    <a href="https://www.kaust.edu.sa/en/about/kaust-impact">KAUST Impact</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="col">
+
+            <h3 class="hidden-mobile">About KAUST</h3>
+            <ul class="hidden-mobile">
+                <li>
+                    <a href="/en/about">History</a>
+                </li>
+               
+                <li><a href="https://maps.kaust.edu.sa/maps/" target="_blank">Interactive map</a></li>
+                </li>
+                <li>
+                    <a href="/en/about/administration">Administration</a>
+                </li>
+                <li>
+                    <a href="/en/about/green-campus">Sustainability</a>
+                </li>
+                <li>
+                    <a href="https://museum.kaust.edu.sa/" target="_blank">Museum</a>
+                </li>
+                <li>
+                    <a href="/en/research">Research </a>
+                </li>
+                <li>
+                    <a href="/en/innovate">Innovation</a>
+                </li>
+                <li>
+                    <a href="/en/study/faculty">Faculty</a>
+                </li>
+                <li>
+                    <a href="/en/about/openings">Careers</a>
+                </li>
+                <li>
+                    <a href="/en/about/photos">Photo Galleries</a>
+                </li>
+                <li>
+                    <a href="/en/about/media-relations">Media Relations</a>
+                </li>
+                
+              <li>
+                      <a href="/whistleblowing/">Whistleblowing<a> </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div class="base">
+        <div class="container footer-end">
+            <p>
+                ©
+                <script language="JavaScript" type="text/javascript">
+                    document.write((new Date()).getFullYear());
+                </script> King Abdullah University of Science and Technology. All rights reserved.
+            </p>
+                  <ul style="margin:24px 0;">
+                  <li>
+                    <a href="/en/privacy-policy/website-users">Terms of Use</a>
+                </li>
+                  <li>
+                    <a href="/en/privacy-policy">Privacy Policy</a>
+                </li>
+                      <li>
+                    <a href="/en/privacy-policy/website-users">Cookie Notice</a>
+                </li>
+                  
+                <li>
+                    <a href="/en/contact">Contact</a>
+                </li>
+
+                
+            </ul>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <span id="DeltaPlaceHolderUtilityContent"></span> </div> </div> <script src="/Frontend-Assembly/Telerik.Sitefinity.Frontend.Navigation/Mvc/Scripts/LanguageSelector/language-selector.js?package=KAUSTMain&amp;v=MTQuNC44MTUyLjA%3d&amp;v=639230406227326179" type="text/javascript"></script><script src="/ResourcePackages/KAUSTMain/MVC/Scripts/LanguageSelector/detailItemTranslations.js?package=KAUSTMain&amp;v=639230406227326179" type="text/javascript"></script><script src="/Frontend-Assembly/Telerik.Sitefinity.Frontend.Navigation/Mvc/Scripts/LanguageSelector/language-selector.js?package=KAUSTMain&amp;v=MTQuNC44MTUyLjA%3d" type="text/javascript"></script><script src="/ResourcePackages/KAUSTMain/MVC/Scripts/LanguageSelector/detailItemTranslations.js" type="text/javascript"></script><script type="application/json" id="PersonalizationTracker">
+	{"IsPagePersonalizationTarget":false,"IsUrlPersonalizationTarget":false,"PageId":"4e942cc7-4cf4-4c02-a115-b92ee577bd58"}
+</script><script type="text/javascript" src="/WebResource.axd?d=NjxTqR2bqTw1rewxxlkHPus3-X1XQomfy_h_J6zJJyG1GFoDsazZp_hrOA-LFmFq2yVVGS4zzQhvATW_ZZBPrT8gG_5SpPlj_erF3Gzvh1fDfCa4wOlF29GUivvChuMdvUlyAKyR5t4b4i9AFYdASx_YKkWO9IQNZXwPQ5XPB09RZ98aeMjj2-kjUh2phMOYAGytItIZzYMMTiO4gAoLyVIqf9J3HBlXg89R0JnaVG41&amp;t=639137696620000000">
+
+</script><input data-sf-role='ar' type='hidden' value='https://www.kaust.edu.sa/ar/research/generative-ai'><input data-sf-role='ar' type='hidden' value='https://www.kaust.edu.sa/ar/research/generative-ai'><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/swiper-bundle.min.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/aos.min.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/lottie.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/global.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/newsSwiper.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/homeSwipers.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/javascript/statsSwiper.js"></script><script type="text/javascript" src="https://cdn.plyr.io/3.6.8/plyr.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/dist/js/lib.min.js"></script><script type="text/javascript" src="/ResourcePackages/KAUSTMain/assets/revamp/dist/js/core.min.js"></script> <script>
+        document.querySelectorAll(".swiper-slide").forEach(elmt => {
+            elmt.style.opacity = 1;
+        });
+
+    </script> <script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=1&cb=785967600" async></script></body> </html>
