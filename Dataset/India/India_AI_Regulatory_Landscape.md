@@ -7,8 +7,6 @@ tags:
   - ai_policy
   - telecom_regulation
   - sandbox
-sources:
-  - cowork_web_research_2026-09-26
 ---
 
 # India — AI Regulatory & Policy Landscape
