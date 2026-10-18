@@ -1,0 +1,33 @@
+name: Validate dataset catalog
+
+# Enforces the "generated, not hand-edited" rule: every push/PR that touches
+# datasets or the indexes must have valid metadata AND an in-sync catalog.
+on:
+  push:
+    paths:
+      - "datasets/**"
+      - "DATASETS.md"
+      - "datasets.json"
+      - "schema/**"
+      - "scripts/**"
+  pull_request:
+    paths:
+      - "datasets/**"
+      - "DATASETS.md"
+      - "datasets.json"
+      - "schema/**"
+      - "scripts/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+      - name: Validate metadata and check catalog is in sync
+        working-directory: scripts
+        run: python build_catalog.py --check

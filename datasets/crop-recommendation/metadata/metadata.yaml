@@ -1,0 +1,21 @@
+slug: crop-recommendation
+name: Crop Recommendation Dataset
+description: Soil nutrients (N, P, K), temperature, humidity, pH and rainfall mapped
+  to a recommended crop. Used in the ITU AI for Good sandbox training (Linear/Logistic
+  Regression & Decision Tree exercise).
+version: 1.0.0
+date_added: '2026-10-18'
+added_by: vishnu.n@ieee.org
+source: https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset
+license: CC0-1.0
+tags:
+- agriculture
+- classification
+- itu-ai-for-good
+- tabular
+files:
+- path: data/Crop_recommendation.csv
+  bytes: 150034
+  sha256: 54a5a6e5408668e668667efc50de2fc867c1b875e0431b4f54dd331b0a109a4e
+  rows: 2200
+  columns: 8
