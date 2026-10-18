@@ -31,6 +31,13 @@
   .name a:hover { text-decoration: underline; }
   .desc { color: var(--muted); margin: 4px 0 8px; }
   .meta { font-size: .82rem; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; }
+  .files { margin-top: 8px; font-size: .82rem; }
+  .files .flabel { color: var(--muted); }
+  .fname { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+           background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+           padding: 1px 6px; margin-right: 6px; }
+  .lfs { background: #8250df; color: #fff; border-radius: 4px; padding: 0 5px;
+         font-size: .68rem; margin-left: 4px; vertical-align: middle; }
   .tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
   .chip { background: var(--chip); color: var(--chip-fg); border-radius: 999px;
           padding: 2px 10px; font-size: .75rem; }
@@ -97,6 +104,7 @@
           ${d.license ? `<span>${esc(d.license)}</span>` : ""}
           ${d.date_added ? `<span>added ${esc(d.date_added)}</span>` : ""}
         </div>
+        ${(d.files && d.files.length) ? `<div class="files"><span class="flabel">Files:</span> ${d.files.map(f => `<span class="fname">${esc(f.name || f.path.split("/").pop())}</span>${f.lfs ? `<span class="lfs">LFS</span>` : ""}`).join(" ")}</div>` : ""}
         ${(d.tags && d.tags.length) ? `<div class="tags">${d.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
       `;
       listEl.appendChild(li);

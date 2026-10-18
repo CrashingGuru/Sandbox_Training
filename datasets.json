@@ -18,12 +18,15 @@
       "source": "https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset",
       "files": [
         {
+          "name": "Crop_recommendation.csv",
           "path": "datasets/crop-recommendation/data/Crop_recommendation.csv",
           "rows": 2200,
           "columns": 8,
-          "bytes": 150034
+          "bytes": 150034,
+          "lfs": false
         }
       ],
+      "readme_path": "datasets/crop-recommendation/README.md",
       "metadata_path": "datasets/crop-recommendation/metadata/metadata.yaml"
     }
   ]

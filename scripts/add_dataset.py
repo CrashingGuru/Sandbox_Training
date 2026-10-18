@@ -38,6 +38,25 @@ import catalog
 
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
 
+# Files at or above this size go to Git LFS automatically.
+DEFAULT_LFS_THRESHOLD_MB = 50
+# Formats that are large/binary by nature -> always LFS, regardless of size.
+LFS_EXTENSIONS = {
+    ".parquet", ".zip", ".gz", ".tgz", ".tar", ".7z", ".h5", ".hdf5",
+    ".npz", ".npy", ".feather", ".arrow", ".pkl", ".pickle", ".db",
+    ".sqlite", ".xlsx", ".mp4", ".wav", ".pt", ".pth", ".bin", ".nc",
+}
+
+
+def lfs_available() -> bool:
+    return shutil.which("git-lfs") is not None
+
+
+def ensure_lfs_tracked(rel_path: str) -> None:
+    """Make Git LFS track a specific path (idempotent). rel_path is repo-relative."""
+    git("lfs", "install", "--local")
+    git("lfs", "track", rel_path)
+
 
 def sha256_of(path: Path) -> str:
     h = hashlib.sha256()
@@ -82,6 +101,10 @@ def main() -> int:
     ap.add_argument("--added-by", default=None, help="Email or handle of the admin.")
     ap.add_argument("--push", action="store_true", help="git push after committing.")
     ap.add_argument("--branch", default="main")
+    ap.add_argument("--lfs", action="store_true",
+                    help="Force all data files for this dataset into Git LFS.")
+    ap.add_argument("--lfs-threshold-mb", type=float, default=DEFAULT_LFS_THRESHOLD_MB,
+                    help=f"Auto-LFS files >= this many MB (default {DEFAULT_LFS_THRESHOLD_MB}).")
     args = ap.parse_args()
 
     if not SLUG_RE.match(args.slug):
@@ -105,16 +128,32 @@ def main() -> int:
     data_dir.mkdir(parents=True)
     meta_dir.mkdir(parents=True)
 
+    threshold_bytes = int(args.lfs_threshold_mb * 1024 * 1024)
     files_meta = []
     for src in args.data:
         dest = data_dir / src.name
         shutil.copy2(src, dest)
+        size = dest.stat().st_size
         rows, cols = csv_shape(dest)
-        entry = {"path": f"data/{src.name}", "bytes": dest.stat().st_size,
-                 "sha256": sha256_of(dest)}
+
+        use_lfs = (args.lfs or size >= threshold_bytes
+                   or src.suffix.lower() in LFS_EXTENSIONS)
+        if use_lfs:
+            if not lfs_available():
+                shutil.rmtree(ds_dir)
+                print(f"'{src.name}' ({size} bytes) needs Git LFS, but git-lfs is not "
+                      "installed. Install it (e.g. `brew install git-lfs`) and retry.",
+                      file=sys.stderr)
+                return 2
+            rel = f"datasets/{args.slug}/data/{src.name}"
+            ensure_lfs_tracked(rel)
+
+        entry = {"path": f"data/{src.name}", "bytes": size, "sha256": sha256_of(dest)}
         if rows is not None:
             entry["rows"] = rows
             entry["columns"] = cols
+        if use_lfs:
+            entry["lfs"] = True
         files_meta.append(entry)
 
     metadata = {
