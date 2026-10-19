@@ -1,0 +1,40 @@
+slug: radio-link-failure
+name: Radio Link Failure Prediction (Turkcell, ITU 2021)
+description: 'Regional microwave radio-link KPIs with weather (met) tables for predicting
+  radio link failures (target ''rlf'' in rl-kpis). Highly imbalanced (~0.06% positive).
+  Data is in RegionA.zip inside a .7z archive (6 TSVs: rl-kpis, rl-sites, distances,
+  met-stations, met-real, met-forecast). ITU AI/ML in 5G Challenge 2021.'
+version: 1.0.0
+date_added: '2026-10-19'
+added_by: vishnu.n@ieee.org
+source_type: external
+source: https://github.com/Turkcell/ITU-AIMLin5GChallenge-2021
+external_source:
+  github: Turkcell/ITU-AIMLin5GChallenge-2021
+  path: RLF_Prediction_ITU_AIML_Challenge_Data
+  ref: main
+  include_ext:
+  - .7z
+  - .xlsx
+  - .txt
+license: See source repository
+tags:
+- networking
+- radio-link-failure
+- imbalanced
+- binary-classification
+- itu-ai4h
+- challenge
+files:
+- name: RLF_Prediction_ITU_AIML_Challenge_Data.7z
+  url: https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/RLF_Prediction_ITU_AIML_Challenge_Data.7z
+  bytes: 22740563
+- name: RLF_Prediction_ITU_AIML_Challenge_Test.7z
+  url: https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/RLF_Prediction_ITU_AIML_Challenge_Test.7z
+  bytes: 19567101
+- name: ReadMe_RLF.txt
+  url: https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/ReadMe_RLF.txt
+  bytes: 317
+- name: RegionA_example.xlsx
+  url: https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/RegionA_example.xlsx
+  bytes: 1203549

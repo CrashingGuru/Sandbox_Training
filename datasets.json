@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-19",
-  "count": 3,
+  "count": 4,
   "datasets": [
     {
       "slug": "application-inference-packet-flows",
@@ -149,6 +149,56 @@
       ],
       "readme_path": "datasets/crop-recommendation/README.md",
       "metadata_path": "datasets/crop-recommendation/metadata/metadata.yaml"
+    },
+    {
+      "slug": "radio-link-failure",
+      "name": "Radio Link Failure Prediction (Turkcell, ITU 2021)",
+      "description": "Regional microwave radio-link KPIs with weather (met) tables for predicting radio link failures (target 'rlf' in rl-kpis). Highly imbalanced (~0.06% positive). Data is in RegionA.zip inside a .7z archive (6 TSVs: rl-kpis, rl-sites, distances, met-stations, met-real, met-forecast). ITU AI/ML in 5G Challenge 2021.",
+      "version": "1.0.0",
+      "tags": [
+        "networking",
+        "radio-link-failure",
+        "imbalanced",
+        "binary-classification",
+        "itu-ai4h",
+        "challenge"
+      ],
+      "date_added": "2026-10-19",
+      "license": "See source repository",
+      "source_type": "external",
+      "source": "https://github.com/Turkcell/ITU-AIMLin5GChallenge-2021",
+      "files": [
+        {
+          "name": "RLF_Prediction_ITU_AIML_Challenge_Data.7z",
+          "url": "https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/RLF_Prediction_ITU_AIML_Challenge_Data.7z",
+          "bytes": 22740563,
+          "rows": null,
+          "columns": null
+        },
+        {
+          "name": "RLF_Prediction_ITU_AIML_Challenge_Test.7z",
+          "url": "https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/RLF_Prediction_ITU_AIML_Challenge_Test.7z",
+          "bytes": 19567101,
+          "rows": null,
+          "columns": null
+        },
+        {
+          "name": "ReadMe_RLF.txt",
+          "url": "https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/ReadMe_RLF.txt",
+          "bytes": 317,
+          "rows": null,
+          "columns": null
+        },
+        {
+          "name": "RegionA_example.xlsx",
+          "url": "https://raw.githubusercontent.com/Turkcell/ITU-AIMLin5GChallenge-2021/main/RLF_Prediction_ITU_AIML_Challenge_Data/RegionA_example.xlsx",
+          "bytes": 1203549,
+          "rows": null,
+          "columns": null
+        }
+      ],
+      "readme_path": "datasets/radio-link-failure/README.md",
+      "metadata_path": "datasets/radio-link-failure/metadata/metadata.yaml"
     },
     {
       "slug": "teleqna",
