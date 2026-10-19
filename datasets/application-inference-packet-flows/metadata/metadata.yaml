@@ -1,0 +1,63 @@
+slug: application-inference-packet-flows
+name: Application Inference from Packet Flows
+description: 'Header-derived traffic statistics from encrypted packet traces for classifying
+  mobile application flows (facebook, google, instagram, mozilla, x, youtube). Two
+  tasks: task1_static (full-flow) and task2_realtime_prefix5 (first-5-packet). From
+  the ITU AI/ML Challenge; test labels are held by organizers. No IPs, DNS, SNI, Host,
+  URLs or payloads are included.'
+version: 1.0.0
+date_added: '2026-10-19'
+added_by: vishnu.n@ieee.org
+source_type: external
+source: https://github.com/FG-AI4H/application-inference-packet-flows-public
+license: See source repository (ITU AI/ML Challenge terms)
+tags:
+- networking
+- traffic-classification
+- encrypted-traffic
+- itu-ai4h
+- challenge
+- classification
+files:
+- name: task1_static/metadata.json
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/metadata.json
+  bytes: 1070
+- name: task1_static/sample_submission.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/sample_submission.csv
+  bytes: 1551
+- name: task1_static/test_features.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/test_features.csv
+  bytes: 15055
+- name: task1_static/train_features.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/train_features.csv
+  bytes: 45647
+- name: task1_static/train_labels.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/train_labels.csv
+  bytes: 4560
+- name: task1_static/validation_features.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/validation_features.csv
+  bytes: 16108
+- name: task1_static/validation_labels.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task1_static/validation_labels.csv
+  bytes: 1544
+- name: task2_realtime_prefix5/metadata.json
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/metadata.json
+  bytes: 1098
+- name: task2_realtime_prefix5/sample_submission.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/sample_submission.csv
+  bytes: 1551
+- name: task2_realtime_prefix5/test_features.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/test_features.csv
+  bytes: 13388
+- name: task2_realtime_prefix5/train_features.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/train_features.csv
+  bytes: 40676
+- name: task2_realtime_prefix5/train_labels.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/train_labels.csv
+  bytes: 4560
+- name: task2_realtime_prefix5/validation_features.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/validation_features.csv
+  bytes: 14274
+- name: task2_realtime_prefix5/validation_labels.csv
+  url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/validation_labels.csv
+  bytes: 1544

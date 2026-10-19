@@ -10,6 +10,7 @@ Soil nutrients (N, P, K), temperature, humidity, pH and rainfall mapped to a rec
 |-------|-------|
 | Slug | `crop-recommendation` |
 | Version | 1.0.0 |
+| Storage | Hosted in this repo |
 | License | CC0-1.0 |
 | Added | 2026-10-18 by vishnu.n@ieee.org |
 | Source | https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset |

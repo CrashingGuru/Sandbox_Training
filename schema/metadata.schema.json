@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/CrashingGuru/Sandbox_Training/schema/metadata.schema.json",
   "title": "Dataset metadata",
-  "description": "Source-of-truth metadata for a single dataset. DATASETS.md and datasets.json are generated from these files.",
+  "description": "Source-of-truth metadata for a single dataset. DATASETS.md and datasets.json are generated from these files. source_type 'hosted' stores files in this repo (with checksums); 'external' only points to files hosted elsewhere.",
   "type": "object",
   "additionalProperties": false,
   "required": ["slug", "name", "description", "version", "date_added", "license", "files"],
@@ -12,24 +12,24 @@
       "description": "URL-safe id; MUST equal the dataset folder name.",
       "pattern": "^[a-z0-9][a-z0-9-]*$"
     },
-    "name": {
-      "type": "string",
-      "description": "Human-readable name shown in the client.",
-      "minLength": 1
-    },
+    "name": { "type": "string", "minLength": 1 },
     "description": { "type": "string", "minLength": 1 },
     "version": {
       "type": "string",
       "description": "Semantic version, e.g. 1.0.0",
       "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
     },
-    "date_added": {
-      "type": "string",
-      "description": "ISO date (YYYY-MM-DD).",
-      "format": "date"
-    },
+    "date_added": { "type": "string", "description": "ISO date (YYYY-MM-DD)." },
     "added_by": { "type": "string" },
-    "source": { "type": "string", "format": "uri" },
+    "source_type": {
+      "type": "string",
+      "enum": ["hosted", "external"],
+      "description": "hosted = files live in this repo; external = pointer only. Defaults to hosted when omitted."
+    },
+    "source": {
+      "type": "string",
+      "description": "Origin URL. Required for external datasets (the repo/page the files live in)."
+    },
     "license": { "type": "string", "minLength": 1 },
     "tags": {
       "type": "array",
@@ -42,22 +42,41 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["path", "bytes", "sha256"],
         "properties": {
           "path": {
             "type": "string",
-            "description": "Path relative to the dataset folder, e.g. data/foo.csv"
+            "description": "hosted: path relative to the dataset folder, e.g. data/foo.csv"
           },
+          "url": {
+            "type": "string",
+            "description": "external: direct URL to the file (e.g. a raw.githubusercontent.com link)."
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name; for external files, typically the path within the source."
+          },
+          "format": { "type": "string" },
           "rows": { "type": "integer", "minimum": 0 },
           "columns": { "type": "integer", "minimum": 0 },
           "bytes": { "type": "integer", "minimum": 0 },
           "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
           "lfs": {
             "type": "boolean",
-            "description": "True if this file is stored via Git LFS (large file)."
+            "description": "hosted only: true if stored via Git LFS (large file)."
           }
         }
       }
     }
+  },
+  "if": {
+    "properties": { "source_type": { "const": "external" } },
+    "required": ["source_type"]
+  },
+  "then": {
+    "required": ["source"],
+    "properties": { "files": { "items": { "required": ["name", "url"] } } }
+  },
+  "else": {
+    "properties": { "files": { "items": { "required": ["path", "bytes", "sha256"] } } }
   }
 }

@@ -120,11 +120,40 @@ def render_markdown(records: list[dict]) -> str:
         rows = sum(f.get("rows", 0) for f in r["files"]) or ""
         tags = ", ".join(r.get("tags", []))
         meta_link = f"datasets/{r['slug']}/metadata/metadata.yaml"
+        name = _md_escape(r["name"]) + (" _(external)_" if is_external(r) else "")
         lines.append(
-            f"| {_md_escape(r['name'])} | `{r['slug']}` | {_md_escape(tags)} "
+            f"| {name} | `{r['slug']}` | {_md_escape(tags)} "
             f"| {rows} | {r['date_added']} | [link]({meta_link}) |"
         )
     return "\n".join(lines) + "\n"
+
+
+def is_external(r: dict) -> bool:
+    return r.get("source_type") == "external"
+
+
+def _dataset_file_url(r: dict, f: dict) -> str:
+    """Resolve a file's fetch URL (external url as-is, else the repo raw URL)."""
+    return f["url"] if is_external(r) else f"{RAW_BASE}/datasets/{r['slug']}/{f['path']}"
+
+
+def _file_json(r: dict, f: dict) -> dict:
+    if is_external(r):
+        return {
+            "name": f.get("name") or f["url"].split("/")[-1],
+            "url": f["url"],
+            "bytes": f.get("bytes"),
+            "rows": f.get("rows"),
+            "columns": f.get("columns"),
+        }
+    return {
+        "name": f["path"].split("/")[-1],
+        "path": f"datasets/{r['slug']}/{f['path']}",
+        "rows": f.get("rows"),
+        "columns": f.get("columns"),
+        "bytes": f.get("bytes"),
+        "lfs": f.get("lfs", False),
+    }
 
 
 def render_json(records: list[dict]) -> str:
@@ -140,18 +169,9 @@ def render_json(records: list[dict]) -> str:
                 "tags": r.get("tags", []),
                 "date_added": r["date_added"],
                 "license": r["license"],
+                "source_type": r.get("source_type", "hosted"),
                 "source": r.get("source"),
-                "files": [
-                    {
-                        "name": f["path"].split("/")[-1],
-                        "path": f"datasets/{r['slug']}/{f['path']}",
-                        "rows": f.get("rows"),
-                        "columns": f.get("columns"),
-                        "bytes": f.get("bytes"),
-                        "lfs": f.get("lfs", False),
-                    }
-                    for f in r["files"]
-                ],
+                "files": [_file_json(r, f) for f in r["files"]],
                 "readme_path": f"datasets/{r['slug']}/README.md",
                 "metadata_path": f"datasets/{r['slug']}/metadata/metadata.yaml",
             }
@@ -163,6 +183,7 @@ def render_json(records: list[dict]) -> str:
 
 def render_readme(r: dict) -> str:
     slug = r["slug"]
+    ext = is_external(r)
     lines = [
         MD_HEADER,
         f"# {r['name']}\n",
@@ -172,6 +193,7 @@ def render_readme(r: dict) -> str:
         "|-------|-------|",
         f"| Slug | `{slug}` |",
         f"| Version | {r['version']} |",
+        f"| Storage | {'External (not copied into this repo)' if ext else 'Hosted in this repo'} |",
         f"| License | {r['license']} |",
         f"| Added | {r['date_added']}"
         + (f" by {r['added_by']}" if r.get("added_by") else "") + " |",
@@ -182,23 +204,40 @@ def render_readme(r: dict) -> str:
         lines.append(f"| Tags | {', '.join(r['tags'])} |")
     lines.append("")
 
-    lines += ["## Files\n", "| File | Rows | Columns | Size | Storage | Download |",
-              "|------|------|---------|------|---------|----------|"]
-    for f in r["files"]:
-        fname = f["path"].split("/")[-1]
-        raw = f"{RAW_BASE}/datasets/{slug}/{f['path']}"
-        storage = "Git LFS" if f.get("lfs") else "git"
+    if ext:
         lines.append(
-            f"| `{fname}` | {f.get('rows', '') or ''} | {f.get('columns', '') or ''} "
-            f"| {_fmt_bytes(f.get('bytes'))} | {storage} | [raw]({raw}) |"
+            "> This dataset is **not stored here**. The files below live in the source "
+            f"repository and are referenced by URL. See the [source]({r['source']})."
         )
+        lines.append("")
+        lines += ["## Files\n", "| File | Rows | Size | Link |",
+                  "|------|------|------|------|"]
+        for f in r["files"]:
+            fname = f.get("name") or f["url"].split("/")[-1]
+            lines.append(
+                f"| `{fname}` | {f.get('rows', '') or ''} "
+                f"| {_fmt_bytes(f.get('bytes'))} | [download]({f['url']}) |"
+            )
+    else:
+        lines += ["## Files\n", "| File | Rows | Columns | Size | Storage | Download |",
+                  "|------|------|---------|------|---------|----------|"]
+        for f in r["files"]:
+            fname = f["path"].split("/")[-1]
+            raw = f"{RAW_BASE}/datasets/{slug}/{f['path']}"
+            storage = "Git LFS" if f.get("lfs") else "git"
+            lines.append(
+                f"| `{fname}` | {f.get('rows', '') or ''} | {f.get('columns', '') or ''} "
+                f"| {_fmt_bytes(f.get('bytes'))} | {storage} | [raw]({raw}) |"
+            )
     lines.append("")
 
     tabular = next((f for f in r["files"]
-                    if f["path"].lower().endswith((".csv", ".tsv"))), None)
+                    if (f.get("path") or f.get("name") or f.get("url", ""))
+                    .lower().endswith((".csv", ".tsv"))), None)
     if tabular:
-        raw = f"{RAW_BASE}/datasets/{slug}/{tabular['path']}"
-        sep = r'"\t"' if tabular["path"].lower().endswith(".tsv") else '","'
+        raw = _dataset_file_url(r, tabular)
+        key = tabular.get("path") or tabular.get("name") or tabular.get("url", "")
+        sep = r'"\t"' if key.lower().endswith(".tsv") else '","'
         lines += [
             "## Load it\n",
             "```python",
@@ -209,10 +248,13 @@ def render_readme(r: dict) -> str:
             "```\n",
         ]
 
+    if not ext:
+        lines += [
+            "## Integrity\n",
+            "SHA-256 checksums for each file are recorded in "
+            "[`metadata/metadata.yaml`](metadata/metadata.yaml).\n",
+        ]
     lines += [
-        "## Integrity\n",
-        "SHA-256 checksums for each file are recorded in "
-        f"[`metadata/metadata.yaml`](metadata/metadata.yaml).\n",
         "---\n",
         "_This README is generated from `metadata/metadata.yaml`. "
         "Do not edit by hand; run `scripts/build_catalog.py`._\n",

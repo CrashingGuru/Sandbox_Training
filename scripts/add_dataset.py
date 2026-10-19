@@ -25,10 +25,12 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import json
 import re
 import shutil
 import subprocess
 import sys
+import urllib.request
 from datetime import date
 from pathlib import Path
 
@@ -37,6 +39,39 @@ import yaml
 import catalog
 
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]*$")
+
+
+def discover_github_files(owner: str, repo: str, ref: str, subpath: str,
+                          exts: list[str]) -> list[dict]:
+    """List blobs under subpath in a public GitHub repo as external file pointers.
+
+    Uses the git trees API (no auth, no download). Returns {name, url, bytes},
+    where name is the path relative to subpath.
+    """
+    api = f"https://api.github.com/repos/{owner}/{repo}/git/trees/{ref}?recursive=1"
+    req = urllib.request.Request(api, headers={"Accept": "application/vnd.github+json",
+                                               "User-Agent": "sandbox-catalog"})
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310 (fixed https host)
+        tree = json.load(resp).get("tree", [])
+
+    prefix = subpath.strip("/")
+    prefix_slash = (prefix + "/") if prefix else ""
+    out = []
+    for node in tree:
+        if node.get("type") != "blob":
+            continue
+        p = node["path"]
+        if prefix and not p.startswith(prefix_slash):
+            continue
+        if exts and not p.lower().endswith(tuple(exts)):
+            continue
+        out.append({
+            "name": p[len(prefix_slash):] if prefix_slash else p,
+            "url": f"https://raw.githubusercontent.com/{owner}/{repo}/{ref}/{p}",
+            "bytes": node.get("size"),
+        })
+    out.sort(key=lambda f: f["name"])
+    return out
 
 # Files at or above this size go to Git LFS automatically.
 DEFAULT_LFS_THRESHOLD_MB = 50
@@ -91,10 +126,10 @@ def main() -> int:
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--slug", required=True, help="URL-safe id; becomes the folder name.")
     ap.add_argument("--name", required=True, help="Human-readable name.")
-    ap.add_argument("--data", required=True, nargs="+", type=Path,
-                    help="One or more data files to copy into the dataset.")
+    ap.add_argument("--data", nargs="+", type=Path,
+                    help="Hosted: one or more data files to copy into the dataset.")
     ap.add_argument("--description", required=True)
-    ap.add_argument("--source", default=None, help="Origin URL.")
+    ap.add_argument("--source", default=None, help="Origin URL (required for --external).")
     ap.add_argument("--license", required=True)
     ap.add_argument("--tags", default="", help="Comma-separated tags.")
     ap.add_argument("--version", default="1.0.0")
@@ -102,9 +137,20 @@ def main() -> int:
     ap.add_argument("--push", action="store_true", help="git push after committing.")
     ap.add_argument("--branch", default="main")
     ap.add_argument("--lfs", action="store_true",
-                    help="Force all data files for this dataset into Git LFS.")
+                    help="Hosted: force all data files into Git LFS.")
     ap.add_argument("--lfs-threshold-mb", type=float, default=DEFAULT_LFS_THRESHOLD_MB,
                     help=f"Auto-LFS files >= this many MB (default {DEFAULT_LFS_THRESHOLD_MB}).")
+    # External (pointer-only) dataset options.
+    ap.add_argument("--external", action="store_true",
+                    help="Register a pointer to data hosted elsewhere (nothing copied).")
+    ap.add_argument("--from-github", metavar="OWNER/REPO",
+                    help="External: auto-discover files from this public GitHub repo.")
+    ap.add_argument("--github-path", default="",
+                    help="External: subpath within the repo to list (default: whole repo).")
+    ap.add_argument("--github-ref", default="main", help="External: branch/tag (default main).")
+    ap.add_argument("--include-ext", default=".csv,.tsv,.json",
+                    help="External: only include files with these extensions (comma-separated; "
+                         "empty string = all).")
     args = ap.parse_args()
 
     if not SLUG_RE.match(args.slug):
@@ -118,6 +164,13 @@ def main() -> int:
               file=sys.stderr)
         return 2
 
+    if args.external:
+        return add_external(args, ds_dir)
+
+    if not args.data:
+        print("Hosted datasets need --data (or pass --external for a pointer).",
+              file=sys.stderr)
+        return 2
     for src in args.data:
         if not src.is_file():
             print(f"Data file not found: {src}", file=sys.stderr)
@@ -174,7 +227,65 @@ def main() -> int:
     with (meta_dir / "metadata.yaml").open("w") as fh:
         yaml.safe_dump(metadata, fh, sort_keys=False, allow_unicode=True)
 
-    # Validate everything and regenerate the indexes. If this raises, we roll back.
+    return finalize(args, ds_dir)
+
+
+def add_external(args, ds_dir: Path) -> int:
+    """Register an external (pointer-only) dataset. Nothing is copied."""
+    if not args.source:
+        print("--external requires --source (the repo/page the data lives in).",
+              file=sys.stderr)
+        return 2
+
+    exts = [e.strip() for e in args.include_ext.split(",") if e.strip()]
+    files_meta: list[dict] = []
+    if args.from_github:
+        try:
+            owner, repo = args.from_github.split("/", 1)
+        except ValueError:
+            print("--from-github must be OWNER/REPO.", file=sys.stderr)
+            return 2
+        try:
+            files_meta = discover_github_files(owner, repo, args.github_ref,
+                                               args.github_path, exts)
+        except Exception as exc:  # network / API errors
+            print(f"GitHub discovery failed: {exc}", file=sys.stderr)
+            return 1
+        if not files_meta:
+            print("No matching files found in the source repo path.", file=sys.stderr)
+            return 1
+    else:
+        print("--external currently requires --from-github OWNER/REPO for discovery.",
+              file=sys.stderr)
+        return 2
+
+    meta_dir = ds_dir / "metadata"
+    meta_dir.mkdir(parents=True)
+
+    metadata = {
+        "slug": args.slug,
+        "name": args.name,
+        "description": args.description,
+        "version": args.version,
+        "date_added": date.today().isoformat(),
+        "added_by": args.added_by,
+        "source_type": "external",
+        "source": args.source,
+        "license": args.license,
+        "tags": [t.strip() for t in args.tags.split(",") if t.strip()],
+        "files": files_meta,
+    }
+    metadata = {k: v for k, v in metadata.items() if v is not None}
+
+    with (meta_dir / "metadata.yaml").open("w") as fh:
+        yaml.safe_dump(metadata, fh, sort_keys=False, allow_unicode=True)
+
+    print(f"Discovered {len(files_meta)} external file(s) from {args.from_github}.")
+    return finalize(args, ds_dir)
+
+
+def finalize(args, ds_dir: Path) -> int:
+    """Validate, regenerate indexes, commit and optionally push. Rolls back on error."""
     try:
         records = catalog.build(validate=True)["datasets"]
     except ValueError as exc:
