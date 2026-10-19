@@ -1,7 +1,39 @@
 {
   "generated": "2026-10-19",
-  "count": 1,
+  "count": 2,
   "notebooks": [
+    {
+      "slug": "application-inference-packet-flows-reference",
+      "name": "Application Inference from Packet Flows - Reference Solution",
+      "description": "Reference solution for the ITU AI/ML 'Application Inference from Packet Flows' challenge: loads flow-statistics features directly from the external challenge repo, trains a Random Forest for both tasks, scores macro-F1 on validation, and writes submission.json. Runs end-to-end in Google Colab.",
+      "version": "1.0.0",
+      "language": "Python",
+      "dataset": "application-inference-packet-flows",
+      "libraries": [
+        "pandas",
+        "scikit-learn",
+        "numpy"
+      ],
+      "authors": [],
+      "tags": [
+        "reference-solution",
+        "traffic-classification",
+        "itu-ai4h",
+        "challenge"
+      ],
+      "license": "See source repository (ITU AI/ML Challenge terms)",
+      "date_added": "2026-10-19",
+      "open_in_colab": "https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/application-inference-packet-flows-reference/notebook/Application_Inference_Packet_Flows_Reference.ipynb",
+      "files": [
+        {
+          "name": "Application_Inference_Packet_Flows_Reference.ipynb",
+          "path": "notebooks/application-inference-packet-flows-reference/notebook/Application_Inference_Packet_Flows_Reference.ipynb",
+          "bytes": 5481
+        }
+      ],
+      "readme_path": "notebooks/application-inference-packet-flows-reference/README.md",
+      "metadata_path": "notebooks/application-inference-packet-flows-reference/metadata/metadata.yaml"
+    },
     {
       "slug": "crop-recommendation-reference",
       "name": "Crop Recommendation - Reference Solution",
