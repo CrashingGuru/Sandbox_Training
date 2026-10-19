@@ -82,11 +82,11 @@
   const REPO   = "Sandbox_Training";
   const BRANCH = "main";
   const REPO_BASE = `https://github.com/${OWNER}/${REPO}/blob/${BRANCH}`;
-  const RAW_BASE  = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`;
   const COLAB_BADGE = "https://colab.research.google.com/assets/colab-badge.svg";
-  // ?local=1 reads the sibling ../*.json for testing before anything is pushed.
-  const LOCAL = new URLSearchParams(location.search).has("local");
-  const srcUrl = name => LOCAL ? `../${name}` : `${RAW_BASE}/${name}`;
+  // The indexes sit at the repo/site root, one level above this client/ page.
+  // A same-origin relative fetch works both on GitHub Pages and local serving,
+  // and avoids raw.githubusercontent.com CDN staleness after a push.
+  const srcUrl = name => `../${name}`;
   // --------------------------------------------------------------------------
 
   const listEl = document.getElementById("list");
