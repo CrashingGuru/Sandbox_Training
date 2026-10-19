@@ -30,6 +30,17 @@
       "type": "string",
       "description": "Origin URL. Required for external datasets (the repo/page the files live in)."
     },
+    "external_source": {
+      "type": "object",
+      "description": "external only: discovery parameters, so refresh_external.py can re-sync deterministically.",
+      "additionalProperties": false,
+      "properties": {
+        "github": { "type": "string", "description": "OWNER/REPO" },
+        "path": { "type": "string", "description": "subpath within the repo" },
+        "ref": { "type": "string", "description": "branch or tag" },
+        "include_ext": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "license": { "type": "string", "minLength": 1 },
     "tags": {
       "type": "array",

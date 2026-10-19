@@ -61,3 +61,10 @@ files:
 - name: task2_realtime_prefix5/validation_labels.csv
   url: https://raw.githubusercontent.com/FG-AI4H/application-inference-packet-flows-public/main/dataset/task2_realtime_prefix5/validation_labels.csv
   bytes: 1544
+external_source:
+  github: FG-AI4H/application-inference-packet-flows-public
+  path: dataset
+  ref: main
+  include_ext:
+  - .csv
+  - .json
