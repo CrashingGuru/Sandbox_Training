@@ -28,7 +28,7 @@ Reference solution for the ITU AI/ML 'Application Inference from Packet Flows' c
 
 | File | Size | View |
 |------|------|------|
-| `Application_Inference_Packet_Flows_Reference.ipynb` | 5.4 KB | [open](https://github.com/CrashingGuru/Sandbox_Training/blob/main/notebooks/application-inference-packet-flows-reference/notebook/Application_Inference_Packet_Flows_Reference.ipynb) |
+| `Application_Inference_Packet_Flows_Reference.ipynb` | 6.1 KB | [open](https://github.com/CrashingGuru/Sandbox_Training/blob/main/notebooks/application-inference-packet-flows-reference/notebook/Application_Inference_Packet_Flows_Reference.ipynb) |
 
 ---
 
