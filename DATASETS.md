@@ -2,9 +2,10 @@
 
 # Dataset Catalog
 
-_2 dataset(s). Generated 2026-10-19._
+_3 dataset(s). Generated 2026-10-19._
 
 | Name | Slug | Tags | Rows | Added | Metadata |
 |------|------|------|------|-------|----------|
 | Application Inference from Packet Flows _(external)_ | `application-inference-packet-flows` | networking, traffic-classification, encrypted-traffic, itu-ai4h, challenge, classification |  | 2026-10-19 | [link](datasets/application-inference-packet-flows/metadata/metadata.yaml) |
 | Crop Recommendation Dataset | `crop-recommendation` | agriculture, classification, itu-ai-for-good, tabular | 2200 | 2026-10-18 | [link](datasets/crop-recommendation/metadata/metadata.yaml) |
+| TeleQnA - Telecom LLM Benchmark _(external)_ | `teleqna` | llm, telecom, benchmark, question-answering, agentic, rag, itu-ai4h |  | 2026-10-19 | [link](datasets/teleqna/metadata/metadata.yaml) |

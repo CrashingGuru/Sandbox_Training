@@ -26,6 +26,7 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -50,8 +51,12 @@ def discover_github_files(owner: str, repo: str, ref: str, subpath: str,
     where name is the path relative to subpath.
     """
     api = f"https://api.github.com/repos/{owner}/{repo}/git/trees/{ref}?recursive=1"
-    req = urllib.request.Request(api, headers={"Accept": "application/vnd.github+json",
-                                               "User-Agent": "sandbox-catalog"})
+    headers = {"Accept": "application/vnd.github+json", "User-Agent": "sandbox-catalog"}
+    # Use a token if provided (raises the API limit from 60 to 5000 req/hr).
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(api, headers=headers)
     with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310 (fixed https host)
         tree = json.load(resp).get("tree", [])
 

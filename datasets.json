@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-19",
-  "count": 2,
+  "count": 3,
   "datasets": [
     {
       "slug": "application-inference-packet-flows",
@@ -149,6 +149,36 @@
       ],
       "readme_path": "datasets/crop-recommendation/README.md",
       "metadata_path": "datasets/crop-recommendation/metadata/metadata.yaml"
+    },
+    {
+      "slug": "teleqna",
+      "name": "TeleQnA - Telecom LLM Benchmark",
+      "description": "10,000 multiple-choice telecom questions across five categories (lexicon, research overview, research publications, standards overview, standards specifications) for assessing LLM telecom knowledge. Dataset is a password-protected zip (password 'teleqnadataset', documented in the repo README) to prevent training-data contamination. Underpins the agentic RAG training row.",
+      "version": "1.0.0",
+      "tags": [
+        "llm",
+        "telecom",
+        "benchmark",
+        "question-answering",
+        "agentic",
+        "rag",
+        "itu-ai4h"
+      ],
+      "date_added": "2026-10-19",
+      "license": "See source repository (research use)",
+      "source_type": "external",
+      "source": "https://github.com/netop-team/TeleQnA",
+      "files": [
+        {
+          "name": "TeleQnA.zip",
+          "url": "https://raw.githubusercontent.com/netop-team/TeleQnA/main/TeleQnA.zip",
+          "bytes": 1409357,
+          "rows": null,
+          "columns": null
+        }
+      ],
+      "readme_path": "datasets/teleqna/README.md",
+      "metadata_path": "datasets/teleqna/metadata/metadata.yaml"
     }
   ]
 }
