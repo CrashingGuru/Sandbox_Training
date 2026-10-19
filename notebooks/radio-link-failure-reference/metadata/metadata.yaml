@@ -1,0 +1,33 @@
+slug: radio-link-failure-reference
+name: Radio Link Failure - Reference Solution
+description: 'Reference solution for the Turkcell/ITU Radio Link Failure dataset:
+  downloads the nested archive from the public repo, loads rl-kpis, and trains an
+  imbalance-aware Random Forest (class weighting, PR-AUC, precision/recall) on the
+  ~0.06%-positive ''rlf'' target. Shows why accuracy is the wrong metric. Runs end-to-end
+  in Colab.'
+version: 1.0.0
+date_added: '2026-10-19'
+added_by: vishnu.n@ieee.org
+dataset: radio-link-failure
+language: Python
+libraries:
+- pandas
+- scikit-learn
+- py7zr
+- matplotlib
+tags:
+- reference-solution
+- binary-classification
+- imbalanced
+- itu-ai4h
+license: See source repository
+authors: []
+source: ''
+doi: ''
+results: ''
+notes: ''
+files:
+- path: notebook/Radio_Link_Failure_Reference.ipynb
+  bytes: 7006
+  sha256: d610fe3bdff6368b853e9554df9e8c0ef28e220ede0523fe201ff81aeff2372c
+  format: ipynb

@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-19",
-  "count": 2,
+  "count": 3,
   "notebooks": [
     {
       "slug": "application-inference-packet-flows-reference",
@@ -64,6 +64,39 @@
       ],
       "readme_path": "notebooks/crop-recommendation-reference/README.md",
       "metadata_path": "notebooks/crop-recommendation-reference/metadata/metadata.yaml"
+    },
+    {
+      "slug": "radio-link-failure-reference",
+      "name": "Radio Link Failure - Reference Solution",
+      "description": "Reference solution for the Turkcell/ITU Radio Link Failure dataset: downloads the nested archive from the public repo, loads rl-kpis, and trains an imbalance-aware Random Forest (class weighting, PR-AUC, precision/recall) on the ~0.06%-positive 'rlf' target. Shows why accuracy is the wrong metric. Runs end-to-end in Colab.",
+      "version": "1.0.0",
+      "language": "Python",
+      "dataset": "radio-link-failure",
+      "libraries": [
+        "pandas",
+        "scikit-learn",
+        "py7zr",
+        "matplotlib"
+      ],
+      "authors": [],
+      "tags": [
+        "reference-solution",
+        "binary-classification",
+        "imbalanced",
+        "itu-ai4h"
+      ],
+      "license": "See source repository",
+      "date_added": "2026-10-19",
+      "open_in_colab": "https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/radio-link-failure-reference/notebook/Radio_Link_Failure_Reference.ipynb",
+      "files": [
+        {
+          "name": "Radio_Link_Failure_Reference.ipynb",
+          "path": "notebooks/radio-link-failure-reference/notebook/Radio_Link_Failure_Reference.ipynb",
+          "bytes": 7006
+        }
+      ],
+      "readme_path": "notebooks/radio-link-failure-reference/README.md",
+      "metadata_path": "notebooks/radio-link-failure-reference/metadata/metadata.yaml"
     }
   ]
 }
