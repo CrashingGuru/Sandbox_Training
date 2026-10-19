@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Dataset Catalog</title>
+<title>Sandbox Training Catalog</title>
 <style>
   :root {
     --bg: #ffffff; --fg: #1a1a1a; --muted: #666; --line: #e3e3e3;
@@ -20,7 +20,12 @@
          background: var(--bg); color: var(--fg); }
   .wrap { max-width: 820px; margin: 0 auto; padding: 28px 18px 60px; }
   h1 { margin: 0 0 4px; font-size: 1.5rem; }
-  .sub { color: var(--muted); margin: 0 0 20px; font-size: .9rem; }
+  .sub { color: var(--muted); margin: 0 0 16px; font-size: .9rem; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+  .tab { appearance: none; background: none; border: none; cursor: pointer;
+         font: inherit; color: var(--muted); padding: 8px 14px; border-radius: 8px 8px 0 0;
+         border-bottom: 2px solid transparent; }
+  .tab[aria-selected="true"] { color: var(--fg); font-weight: 600; border-bottom-color: var(--accent); }
   #search { width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid var(--line);
             border-radius: 8px; background: var(--card); color: var(--fg); margin-bottom: 18px; }
   ul { list-style: none; padding: 0; margin: 0; }
@@ -31,6 +36,7 @@
   .name a:hover { text-decoration: underline; }
   .desc { color: var(--muted); margin: 4px 0 8px; }
   .meta { font-size: .82rem; color: var(--muted); display: flex; gap: 14px; flex-wrap: wrap; }
+  .meta a { color: var(--accent); text-decoration: none; }
   .files { margin-top: 8px; font-size: .82rem; }
   .files .flabel { color: var(--muted); }
   .fname { font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -38,6 +44,8 @@
            padding: 1px 6px; margin-right: 6px; }
   .lfs { background: #8250df; color: #fff; border-radius: 4px; padding: 0 5px;
          font-size: .68rem; margin-left: 4px; vertical-align: middle; }
+  .colab { margin-top: 10px; }
+  .colab img { height: 20px; vertical-align: middle; }
   .tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
   .chip { background: var(--chip); color: var(--chip-fg); border-radius: 999px;
           padding: 2px 10px; font-size: .75rem; }
@@ -49,13 +57,19 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>Dataset Catalog</h1>
+  <h1>Sandbox Training Catalog</h1>
   <p class="sub" id="subtitle">Loading…</p>
-  <input id="search" type="search" placeholder="Filter datasets by name, tag or description…" autocomplete="off" />
+
+  <div class="tabs" role="tablist">
+    <button class="tab" id="tab-datasets" role="tab" aria-selected="true">Datasets</button>
+    <button class="tab" id="tab-notebooks" role="tab" aria-selected="false">Notebooks</button>
+  </div>
+
+  <input id="search" type="search" placeholder="Filter by name, tag or description…" autocomplete="off" />
   <ul id="list"></ul>
   <p class="status" id="status"></p>
   <footer>
-    Reads <code>datasets.json</code> directly from the public GitHub repo. No login required.
+    Reads <code>datasets.json</code> and <code>notebooks.json</code> directly from the public GitHub repo. No login required.
   </footer>
 </div>
 
@@ -64,19 +78,20 @@
   const OWNER  = "CrashingGuru";
   const REPO   = "Sandbox_Training";
   const BRANCH = "main";
-  // Public repo => raw.githubusercontent.com needs no token.
-  const INDEX_URL = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/datasets.json`;
   const REPO_BASE = `https://github.com/${OWNER}/${REPO}/blob/${BRANCH}`;
-  // For quick local testing, open index.html?local=1 to read ../datasets.json instead.
-  const url = new URLSearchParams(location.search).has("local")
-    ? "../datasets.json" : INDEX_URL;
+  const RAW_BASE  = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`;
+  const COLAB_BADGE = "https://colab.research.google.com/assets/colab-badge.svg";
+  // ?local=1 reads the sibling ../*.json for testing before anything is pushed.
+  const LOCAL = new URLSearchParams(location.search).has("local");
+  const srcUrl = name => LOCAL ? `../${name}` : `${RAW_BASE}/${name}`;
   // --------------------------------------------------------------------------
 
   const listEl = document.getElementById("list");
   const statusEl = document.getElementById("status");
   const subtitleEl = document.getElementById("subtitle");
   const searchEl = document.getElementById("search");
-  let datasets = [];
+
+  const state = { tab: "datasets", datasets: [], notebooks: [], loaded: { datasets: false, notebooks: false } };
 
   function fmtBytes(n) {
     if (!n && n !== 0) return "";
@@ -85,66 +100,117 @@
     return `${n.toFixed(i ? 1 : 0)} ${u[i]}`;
   }
 
-  function render(items) {
-    listEl.innerHTML = "";
-    if (!items.length) { statusEl.textContent = "No matching datasets."; return; }
-    statusEl.textContent = "";
-    for (const d of items) {
-      const li = document.createElement("li");
-      li.className = "ds";
-      const totalRows = (d.files || []).reduce((s, f) => s + (f.rows || 0), 0);
-      const totalBytes = (d.files || []).reduce((s, f) => s + (f.bytes || 0), 0);
-      li.innerHTML = `
-        <div class="name"><a href="${REPO_BASE}/${d.metadata_path}" target="_blank" rel="noopener">${esc(d.name)}</a></div>
-        <div class="desc">${esc(d.description || "")}</div>
-        <div class="meta">
-          <span>v${esc(d.version || "")}</span>
-          ${totalRows ? `<span>${totalRows.toLocaleString()} rows</span>` : ""}
-          ${totalBytes ? `<span>${fmtBytes(totalBytes)}</span>` : ""}
-          ${d.license ? `<span>${esc(d.license)}</span>` : ""}
-          ${d.date_added ? `<span>added ${esc(d.date_added)}</span>` : ""}
-        </div>
-        ${(d.files && d.files.length) ? `<div class="files"><span class="flabel">Files:</span> ${d.files.map(f => `<span class="fname">${esc(f.name || f.path.split("/").pop())}</span>${f.lfs ? `<span class="lfs">LFS</span>` : ""}`).join(" ")}</div>` : ""}
-        ${(d.tags && d.tags.length) ? `<div class="tags">${d.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
-      `;
-      listEl.appendChild(li);
-    }
-  }
-
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c =>
       ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
+  function datasetCard(d) {
+    const totalRows = (d.files || []).reduce((s, f) => s + (f.rows || 0), 0);
+    const totalBytes = (d.files || []).reduce((s, f) => s + (f.bytes || 0), 0);
+    return `
+      <div class="name"><a href="${REPO_BASE}/${d.metadata_path}" target="_blank" rel="noopener">${esc(d.name)}</a></div>
+      <div class="desc">${esc(d.description || "")}</div>
+      <div class="meta">
+        <span>v${esc(d.version || "")}</span>
+        ${totalRows ? `<span>${totalRows.toLocaleString()} rows</span>` : ""}
+        ${totalBytes ? `<span>${fmtBytes(totalBytes)}</span>` : ""}
+        ${d.license ? `<span>${esc(d.license)}</span>` : ""}
+        ${d.date_added ? `<span>added ${esc(d.date_added)}</span>` : ""}
+      </div>
+      ${(d.files && d.files.length) ? `<div class="files"><span class="flabel">Files:</span> ${d.files.map(f => `<span class="fname">${esc(f.name || f.path.split("/").pop())}</span>${f.lfs ? `<span class="lfs">LFS</span>` : ""}`).join(" ")}</div>` : ""}
+      ${(d.tags && d.tags.length) ? `<div class="tags">${d.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
+    `;
+  }
+
+  function notebookCard(n) {
+    const dsLink = n.dataset
+      ? `<span>dataset: <a href="${REPO_BASE}/datasets/${esc(n.dataset)}/README.md" target="_blank" rel="noopener">${esc(n.dataset)}</a></span>`
+      : "";
+    return `
+      <div class="name"><a href="${REPO_BASE}/${n.readme_path}" target="_blank" rel="noopener">${esc(n.name)}</a></div>
+      <div class="desc">${esc(n.description || "")}</div>
+      <div class="meta">
+        <span>v${esc(n.version || "")}</span>
+        ${n.language ? `<span>${esc(n.language)}</span>` : ""}
+        ${dsLink}
+        ${n.license ? `<span>${esc(n.license)}</span>` : ""}
+        ${n.date_added ? `<span>added ${esc(n.date_added)}</span>` : ""}
+      </div>
+      ${n.open_in_colab ? `<div class="colab"><a href="${esc(n.open_in_colab)}" target="_blank" rel="noopener"><img src="${COLAB_BADGE}" alt="Open In Colab"></a></div>` : ""}
+      ${(n.libraries && n.libraries.length) ? `<div class="tags">${n.libraries.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
+      ${(n.tags && n.tags.length) ? `<div class="tags">${n.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
+    `;
+  }
+
+  function currentItems() { return state.tab === "datasets" ? state.datasets : state.notebooks; }
+
+  function render(items) {
+    listEl.innerHTML = "";
+    if (!items.length) {
+      statusEl.textContent = state.loaded[state.tab] ? `No matching ${state.tab}.` : "Loading…";
+      return;
+    }
+    statusEl.textContent = "";
+    for (const it of items) {
+      const li = document.createElement("li");
+      li.className = "ds";
+      li.innerHTML = state.tab === "datasets" ? datasetCard(it) : notebookCard(it);
+      listEl.appendChild(li);
+    }
+  }
+
   function applyFilter() {
     const q = searchEl.value.trim().toLowerCase();
-    if (!q) return render(datasets);
-    render(datasets.filter(d =>
-      (d.name + " " + (d.description || "") + " " + (d.tags || []).join(" "))
+    const items = currentItems();
+    if (!q) return render(items);
+    render(items.filter(it =>
+      (it.name + " " + (it.description || "") + " "
+        + (it.tags || []).join(" ") + " " + (it.libraries || []).join(" "))
         .toLowerCase().includes(q)));
   }
 
+  function selectTab(tab) {
+    state.tab = tab;
+    document.getElementById("tab-datasets").setAttribute("aria-selected", tab === "datasets");
+    document.getElementById("tab-notebooks").setAttribute("aria-selected", tab === "notebooks");
+    searchEl.placeholder = `Filter ${tab} by name, tag or description…`;
+    applyFilter();
+  }
+
+  document.getElementById("tab-datasets").addEventListener("click", () => selectTab("datasets"));
+  document.getElementById("tab-notebooks").addEventListener("click", () => selectTab("notebooks"));
   searchEl.addEventListener("input", applyFilter);
 
-  fetch(url, { cache: "no-cache" })
-    .then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status} fetching ${url}`);
-      return r.json();
-    })
-    .then(data => {
-      datasets = data.datasets || [];
-      subtitleEl.textContent =
-        `${data.count ?? datasets.length} dataset(s) · generated ${data.generated || "?"}`;
-      render(datasets);
-    })
-    .catch(err => {
-      subtitleEl.textContent = "";
-      statusEl.className = "status err";
-      statusEl.innerHTML =
-        `Could not load the catalog: ${esc(err.message)}.<br>` +
-        `Make sure the repo is public and <code>datasets.json</code> has been pushed to ` +
-        `<code>${BRANCH}</code>.`;
-    });
+  function updateSubtitle() {
+    const d = state.loaded.datasets ? `${state.datasets.length} dataset(s)` : "…";
+    const n = state.loaded.notebooks ? `${state.notebooks.length} notebook(s)` : "…";
+    subtitleEl.textContent = `${d} · ${n}`;
+  }
+
+  function load(name, key) {
+    return fetch(srcUrl(name), { cache: "no-cache" })
+      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status} fetching ${name}`); return r.json(); })
+      .then(data => {
+        state[key] = data[key] || [];
+        state.loaded[key] = true;
+        updateSubtitle();
+        if (state.tab === key) applyFilter();
+      })
+      .catch(err => {
+        state.loaded[key] = true;
+        updateSubtitle();
+        if (state.tab === key) {
+          statusEl.className = "status err";
+          statusEl.innerHTML = `Could not load ${name}: ${esc(err.message)}.<br>`
+            + `Make sure the repo is public and <code>${name}</code> is pushed to <code>${BRANCH}</code>.`;
+        }
+      });
+  }
+
+  // Datasets first (default tab), notebooks in parallel.
+  load("datasets.json", "datasets");
+  load("notebooks.json", "notebooks");
 </script>
 </body>
 </html>
