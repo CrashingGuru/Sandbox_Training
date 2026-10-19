@@ -44,6 +44,9 @@
            padding: 1px 6px; margin-right: 6px; }
   .lfs { background: #8250df; color: #fff; border-radius: 4px; padding: 0 5px;
          font-size: .68rem; margin-left: 4px; vertical-align: middle; }
+  .ext { background: #1f883d; color: #fff; border-radius: 4px; padding: 0 6px;
+         font-size: .68rem; margin-left: 8px; vertical-align: middle; }
+  .ext a { color: #fff; text-decoration: none; }
   .colab { margin-top: 10px; }
   .colab img { height: 20px; vertical-align: middle; }
   .tags { margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
@@ -106,10 +109,18 @@
   }
 
   function datasetCard(d) {
-    const totalRows = (d.files || []).reduce((s, f) => s + (f.rows || 0), 0);
+    const ext = d.source_type === "external";
     const totalBytes = (d.files || []).reduce((s, f) => s + (f.bytes || 0), 0);
+    const nFiles = (d.files || []).length;
+    const extBadge = ext && d.source
+      ? `<span class="ext"><a href="${esc(d.source)}" target="_blank" rel="noopener">External ↗</a></span>` : "";
+    const totalRows = ext ? 0 : (d.files || []).reduce((s, f) => s + (f.rows || 0), 0);
+    const filesLine = ext
+      ? `<div class="files"><span class="flabel">Files:</span> ${nFiles} file(s) hosted externally`
+        + (d.source ? ` · <a href="${esc(d.source)}" target="_blank" rel="noopener">source repo</a>` : "") + `</div>`
+      : ((d.files && d.files.length) ? `<div class="files"><span class="flabel">Files:</span> ${d.files.map(f => `<span class="fname">${esc(f.name || f.path.split("/").pop())}</span>${f.lfs ? `<span class="lfs">LFS</span>` : ""}`).join(" ")}</div>` : "");
     return `
-      <div class="name"><a href="${REPO_BASE}/${d.metadata_path}" target="_blank" rel="noopener">${esc(d.name)}</a></div>
+      <div class="name"><a href="${REPO_BASE}/${d.metadata_path}" target="_blank" rel="noopener">${esc(d.name)}</a>${extBadge}</div>
       <div class="desc">${esc(d.description || "")}</div>
       <div class="meta">
         <span>v${esc(d.version || "")}</span>
@@ -118,7 +129,7 @@
         ${d.license ? `<span>${esc(d.license)}</span>` : ""}
         ${d.date_added ? `<span>added ${esc(d.date_added)}</span>` : ""}
       </div>
-      ${(d.files && d.files.length) ? `<div class="files"><span class="flabel">Files:</span> ${d.files.map(f => `<span class="fname">${esc(f.name || f.path.split("/").pop())}</span>${f.lfs ? `<span class="lfs">LFS</span>` : ""}`).join(" ")}</div>` : ""}
+      ${filesLine}
       ${(d.tags && d.tags.length) ? `<div class="tags">${d.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
     `;
   }
