@@ -34,11 +34,12 @@ def main() -> int:
         return 0
 
     try:
-        records = catalog.build(validate=True)
+        result = catalog.build(validate=True)
     except ValueError as exc:
         print(exc, file=sys.stderr)
         return 1
-    print(f"Regenerated DATASETS.md and datasets.json ({len(records)} dataset(s)).")
+    print(f"Regenerated catalog: {len(result['datasets'])} dataset(s), "
+          f"{len(result['notebooks'])} notebook(s).")
     return 0
 
 

@@ -176,7 +176,7 @@ def main() -> int:
 
     # Validate everything and regenerate the indexes. If this raises, we roll back.
     try:
-        records = catalog.build(validate=True)
+        records = catalog.build(validate=True)["datasets"]
     except ValueError as exc:
         shutil.rmtree(ds_dir)
         print(exc, file=sys.stderr)

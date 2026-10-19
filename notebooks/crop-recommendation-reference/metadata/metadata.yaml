@@ -1,0 +1,29 @@
+slug: crop-recommendation-reference
+name: Crop Recommendation - Reference Solution
+description: 'Reference solution for the Crop Recommendation dataset: loads data from
+  the public catalog, then trains and compares Logistic Regression (scaled) and a
+  Decision Tree classifier. Runs end-to-end in Google Colab.'
+version: 1.0.0
+date_added: '2026-10-19'
+added_by: vishnu.n@ieee.org
+dataset: crop-recommendation
+language: Python
+libraries:
+- pandas
+- scikit-learn
+- matplotlib
+tags:
+- reference-solution
+- classification
+- itu-ai-for-good
+license: CC0-1.0
+authors: []
+source: ''
+doi: ''
+results: ''
+notes: ''
+files:
+- path: notebook/Crop_Recommendation_Reference.ipynb
+  bytes: 5779
+  sha256: ac3dd609bfa88769565a085ac4f02f187435d65ccc99f761da782daf331a1730
+  format: ipynb

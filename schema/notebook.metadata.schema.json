@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/CrashingGuru/Sandbox_Training/schema/notebook.metadata.schema.json",
+  "title": "Notebook metadata",
+  "description": "Source-of-truth metadata for a single notebook. notebooks.md and notebooks.json are generated from these files. Optional fields may be left empty as a fill-in-later template.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "name", "description", "version", "date_added", "language", "files"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "URL-safe id; MUST equal the notebook folder name.",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "version": {
+      "type": "string",
+      "description": "Semantic version, e.g. 1.0.0",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "date_added": { "type": "string", "description": "ISO date (YYYY-MM-DD)." },
+    "added_by": { "type": "string", "description": "Email or handle of the admin." },
+    "dataset": {
+      "type": "string",
+      "description": "Slug of the related dataset in datasets/, or empty if none."
+    },
+    "language": { "type": "string", "description": "e.g. Python" },
+    "libraries": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "description": "Key libraries used, e.g. pandas, scikit-learn."
+    },
+    "authors": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Notebook authors; may be empty and filled in later."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "license": { "type": "string" },
+    "source": { "type": "string", "description": "Origin URL or reference; may be empty." },
+    "doi": { "type": "string", "description": "DOI if published; may be empty." },
+    "results": { "type": "string", "description": "Headline results/metrics; may be empty." },
+    "notes": { "type": "string", "description": "Free-form notes; may be empty." },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path relative to the notebook folder, e.g. notebook/foo.ipynb"
+          },
+          "format": { "type": "string", "description": "e.g. ipynb" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    }
+  }
+}
