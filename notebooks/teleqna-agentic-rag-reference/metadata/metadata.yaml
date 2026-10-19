@@ -1,0 +1,34 @@
+slug: teleqna-agentic-rag-reference
+name: TeleQnA - Agentic RAG Reference Solution
+description: 'Agentic RAG reference for the TeleQnA telecom benchmark: a retriever
+  (all-MiniLM-L6-v2) plus a small LLM (flan-t5-base) wired into an agent with retrieve/answer/refuse
+  tools and a confidence guardrail. Demonstrates the retrieve->answer->guardrail->cite
+  pipeline and maps the refusal guardrail to the UAE AI Charter. Runs on Colab free
+  tier (CPU).'
+version: 1.0.0
+date_added: '2026-10-19'
+added_by: vishnu.n@ieee.org
+dataset: teleqna
+language: Python
+libraries:
+- pyzipper
+- sentence-transformers
+- transformers
+- numpy
+tags:
+- reference-solution
+- agentic
+- rag
+- llm
+- itu-ai4h
+license: See source repository (research use)
+authors: []
+source: ''
+doi: ''
+results: ''
+notes: ''
+files:
+- path: notebook/TeleQnA_Agentic_RAG_Reference.ipynb
+  bytes: 8872
+  sha256: 084d1722955746caf2746c0a591b8e2f19a97b589b6ef9f9a81d09ef6489ec31
+  format: ipynb

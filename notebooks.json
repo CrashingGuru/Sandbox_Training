@@ -1,6 +1,6 @@
 {
   "generated": "2026-10-19",
-  "count": 3,
+  "count": 4,
   "notebooks": [
     {
       "slug": "application-inference-packet-flows-reference",
@@ -97,6 +97,40 @@
       ],
       "readme_path": "notebooks/radio-link-failure-reference/README.md",
       "metadata_path": "notebooks/radio-link-failure-reference/metadata/metadata.yaml"
+    },
+    {
+      "slug": "teleqna-agentic-rag-reference",
+      "name": "TeleQnA - Agentic RAG Reference Solution",
+      "description": "Agentic RAG reference for the TeleQnA telecom benchmark: a retriever (all-MiniLM-L6-v2) plus a small LLM (flan-t5-base) wired into an agent with retrieve/answer/refuse tools and a confidence guardrail. Demonstrates the retrieve->answer->guardrail->cite pipeline and maps the refusal guardrail to the UAE AI Charter. Runs on Colab free tier (CPU).",
+      "version": "1.0.0",
+      "language": "Python",
+      "dataset": "teleqna",
+      "libraries": [
+        "pyzipper",
+        "sentence-transformers",
+        "transformers",
+        "numpy"
+      ],
+      "authors": [],
+      "tags": [
+        "reference-solution",
+        "agentic",
+        "rag",
+        "llm",
+        "itu-ai4h"
+      ],
+      "license": "See source repository (research use)",
+      "date_added": "2026-10-19",
+      "open_in_colab": "https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/teleqna-agentic-rag-reference/notebook/TeleQnA_Agentic_RAG_Reference.ipynb",
+      "files": [
+        {
+          "name": "TeleQnA_Agentic_RAG_Reference.ipynb",
+          "path": "notebooks/teleqna-agentic-rag-reference/notebook/TeleQnA_Agentic_RAG_Reference.ipynb",
+          "bytes": 8872
+        }
+      ],
+      "readme_path": "notebooks/teleqna-agentic-rag-reference/README.md",
+      "metadata_path": "notebooks/teleqna-agentic-rag-reference/metadata/metadata.yaml"
     }
   ]
 }
