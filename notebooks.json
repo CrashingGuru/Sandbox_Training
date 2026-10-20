@@ -1,6 +1,6 @@
 {
-  "generated": "2026-10-19",
-  "count": 4,
+  "generated": "2026-10-20",
+  "count": 5,
   "notebooks": [
     {
       "slug": "application-inference-packet-flows-reference",
@@ -97,6 +97,39 @@
       ],
       "readme_path": "notebooks/radio-link-failure-reference/README.md",
       "metadata_path": "notebooks/radio-link-failure-reference/metadata/metadata.yaml"
+    },
+    {
+      "slug": "telecom-rag-agent",
+      "name": "Telecom RAG Agent - Create & Test",
+      "description": "Companion notebook for the Telecom RAG Agent: loads the packaged agent.py, wires a retriever + small LLM, creates the agent and runs test queries showing the retrieve->answer/refuse tool trace. Runs on Colab free tier.",
+      "version": "1.0.0",
+      "language": "Python",
+      "dataset": "teleqna",
+      "libraries": [
+        "pyzipper",
+        "sentence-transformers",
+        "transformers",
+        "numpy"
+      ],
+      "authors": [],
+      "tags": [
+        "agentic",
+        "rag",
+        "agent-testing",
+        "itu-ai4h"
+      ],
+      "license": "See source repository (research use)",
+      "date_added": "2026-10-20",
+      "open_in_colab": "https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb",
+      "files": [
+        {
+          "name": "Telecom_RAG_Agent.ipynb",
+          "path": "notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb",
+          "bytes": 5141
+        }
+      ],
+      "readme_path": "notebooks/telecom-rag-agent/README.md",
+      "metadata_path": "notebooks/telecom-rag-agent/metadata/metadata.yaml"
     },
     {
       "slug": "teleqna-agentic-rag-reference",

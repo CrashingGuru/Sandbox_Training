@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/CrashingGuru/Sandbox_Training/schema/agent.metadata.schema.json",
+  "title": "Agent metadata",
+  "description": "Source-of-truth metadata for a single agent. AGENTS.md and agents.json are generated from these files. An agent packages a reusable definition file plus links to the dataset it uses and the notebook that creates/tests it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "name", "description", "version", "date_added", "framework", "files"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "URL-safe id; MUST equal the agent folder name.",
+      "pattern": "^[a-z0-9][a-z0-9-]*$"
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "date_added": { "type": "string", "description": "ISO date (YYYY-MM-DD)." },
+    "added_by": { "type": "string" },
+    "framework": {
+      "type": "string",
+      "description": "Agent framework/pattern, e.g. 'custom (retrieve/answer/refuse)', 'LangChain', 'MCP'."
+    },
+    "model": { "type": "string", "description": "LLM / models the agent uses." },
+    "tools": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Tool names the agent exposes, e.g. retrieve, answer, refuse."
+    },
+    "guardrails": { "type": "string", "description": "Governance controls in one line." },
+    "dataset": { "type": "string", "description": "Slug of the dataset the agent uses (optional)." },
+    "notebook": {
+      "type": "string",
+      "description": "Slug of the notebook that creates/tests this agent (optional)."
+    },
+    "tags": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "license": { "type": "string" },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The agent's definition file(s), hosted in this repo.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "bytes", "sha256"],
+        "properties": {
+          "path": { "type": "string", "description": "Path relative to the agent folder, e.g. agent/agent.py" },
+          "format": { "type": "string" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    }
+  }
+}

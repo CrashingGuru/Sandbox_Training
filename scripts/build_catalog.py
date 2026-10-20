@@ -39,7 +39,7 @@ def main() -> int:
         print(exc, file=sys.stderr)
         return 1
     print(f"Regenerated catalog: {len(result['datasets'])} dataset(s), "
-          f"{len(result['notebooks'])} notebook(s).")
+          f"{len(result['notebooks'])} notebook(s), {len(result['agents'])} agent(s).")
     return 0
 
 

@@ -2,7 +2,7 @@
 
 # Dataset Catalog
 
-_4 dataset(s). Generated 2026-10-19._
+_4 dataset(s). Generated 2026-10-20._
 
 | Name | Slug | Tags | Rows | Added | Metadata |
 |------|------|------|------|-------|----------|

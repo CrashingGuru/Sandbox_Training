@@ -2,11 +2,12 @@
 
 # Notebook Catalog
 
-_4 notebook(s). Generated 2026-10-19._
+_5 notebook(s). Generated 2026-10-20._
 
 | Name | Slug | Dataset | Language | Added | Open in Colab | Metadata |
 |------|------|---------|----------|-------|---------------|----------|
 | Application Inference from Packet Flows - Reference Solution | `application-inference-packet-flows-reference` | [`application-inference-packet-flows`](datasets/application-inference-packet-flows/README.md) | Python | 2026-10-19 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/application-inference-packet-flows-reference/notebook/Application_Inference_Packet_Flows_Reference.ipynb) | [link](notebooks/application-inference-packet-flows-reference/metadata/metadata.yaml) |
 | Crop Recommendation - Reference Solution | `crop-recommendation-reference` | [`crop-recommendation`](datasets/crop-recommendation/README.md) | Python | 2026-10-19 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/crop-recommendation-reference/notebook/Crop_Recommendation_Reference.ipynb) | [link](notebooks/crop-recommendation-reference/metadata/metadata.yaml) |
 | Radio Link Failure - Reference Solution | `radio-link-failure-reference` | [`radio-link-failure`](datasets/radio-link-failure/README.md) | Python | 2026-10-19 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/radio-link-failure-reference/notebook/Radio_Link_Failure_Reference.ipynb) | [link](notebooks/radio-link-failure-reference/metadata/metadata.yaml) |
+| Telecom RAG Agent - Create & Test | `telecom-rag-agent` | [`teleqna`](datasets/teleqna/README.md) | Python | 2026-10-20 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb) | [link](notebooks/telecom-rag-agent/metadata/metadata.yaml) |
 | TeleQnA - Agentic RAG Reference Solution | `teleqna-agentic-rag-reference` | [`teleqna`](datasets/teleqna/README.md) | Python | 2026-10-19 | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/teleqna-agentic-rag-reference/notebook/TeleQnA_Agentic_RAG_Reference.ipynb) | [link](notebooks/teleqna-agentic-rag-reference/metadata/metadata.yaml) |
