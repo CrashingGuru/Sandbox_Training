@@ -1,0 +1,41 @@
+{
+  "generated": "2026-10-20",
+  "count": 1,
+  "agents": [
+    {
+      "slug": "telecom-rag-agent",
+      "name": "Telecom RAG Agent",
+      "description": "A small retrieval-augmented telecom agent: retrieves context from a TeleQnA knowledge base, then answers a multiple-choice question or refuses when confidence is low. Dependencies (embedder + LLM) are injected, so the definition is reusable and testable with stubs. Maps the refusal guardrail to the UAE AI Charter (human oversight / robustness).",
+      "version": "1.0.0",
+      "framework": "custom (retrieve / answer / refuse)",
+      "model": "google/flan-t5-base + all-MiniLM-L6-v2",
+      "tools": [
+        "retrieve",
+        "answer",
+        "refuse"
+      ],
+      "guardrails": "Refuses (returns None) when top retrieval similarity < 0.25; logs every tool call for audit.",
+      "dataset": "teleqna",
+      "notebook": "telecom-rag-agent",
+      "open_in_colab": "https://colab.research.google.com/github/CrashingGuru/Sandbox_Training/blob/main/notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb",
+      "tags": [
+        "agentic",
+        "rag",
+        "llm",
+        "telecom",
+        "itu-ai4h"
+      ],
+      "license": "See source repository (research use)",
+      "date_added": "2026-10-20",
+      "files": [
+        {
+          "name": "agent.py",
+          "path": "agents/telecom-rag-agent/agent/agent.py",
+          "bytes": 3063
+        }
+      ],
+      "readme_path": "agents/telecom-rag-agent/README.md",
+      "metadata_path": "agents/telecom-rag-agent/metadata/metadata.yaml"
+    }
+  ]
+}

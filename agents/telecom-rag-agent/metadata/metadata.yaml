@@ -1,0 +1,32 @@
+slug: telecom-rag-agent
+name: Telecom RAG Agent
+description: 'A small retrieval-augmented telecom agent: retrieves context from a
+  TeleQnA knowledge base, then answers a multiple-choice question or refuses when
+  confidence is low. Dependencies (embedder + LLM) are injected, so the definition
+  is reusable and testable with stubs. Maps the refusal guardrail to the UAE AI Charter
+  (human oversight / robustness).'
+version: 1.0.0
+date_added: '2026-10-20'
+added_by: vishnu.n@ieee.org
+framework: custom (retrieve / answer / refuse)
+model: google/flan-t5-base + all-MiniLM-L6-v2
+tools:
+- retrieve
+- answer
+- refuse
+guardrails: Refuses (returns None) when top retrieval similarity < 0.25; logs every
+  tool call for audit.
+dataset: teleqna
+notebook: telecom-rag-agent
+tags:
+- agentic
+- rag
+- llm
+- telecom
+- itu-ai4h
+license: See source repository (research use)
+files:
+- path: agent/agent.py
+  bytes: 3063
+  sha256: 38a4fa0e467a576f8fe6048ab18c71bcea361a66839d51ae27b1141ba8341685
+  format: py
