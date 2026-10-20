@@ -66,13 +66,14 @@
   <div class="tabs" role="tablist">
     <button class="tab" id="tab-datasets" role="tab" aria-selected="true">Datasets</button>
     <button class="tab" id="tab-notebooks" role="tab" aria-selected="false">Notebooks</button>
+    <button class="tab" id="tab-agents" role="tab" aria-selected="false">Agents</button>
   </div>
 
   <input id="search" type="search" placeholder="Filter by name, tag or description…" autocomplete="off" />
   <ul id="list"></ul>
   <p class="status" id="status"></p>
   <footer>
-    Reads <code>datasets.json</code> and <code>notebooks.json</code> directly from the public GitHub repo. No login required.
+    Reads <code>datasets.json</code>, <code>notebooks.json</code> and <code>agents.json</code> directly from the public GitHub repo. No login required.
   </footer>
 </div>
 
@@ -94,7 +95,8 @@
   const subtitleEl = document.getElementById("subtitle");
   const searchEl = document.getElementById("search");
 
-  const state = { tab: "datasets", datasets: [], notebooks: [], loaded: { datasets: false, notebooks: false } };
+  const state = { tab: "datasets", datasets: [], notebooks: [], agents: [],
+                  loaded: { datasets: false, notebooks: false, agents: false } };
 
   function fmtBytes(n) {
     if (!n && n !== 0) return "";
@@ -154,7 +156,35 @@
     `;
   }
 
-  function currentItems() { return state.tab === "datasets" ? state.datasets : state.notebooks; }
+  function agentCard(a) {
+    const dsLink = a.dataset
+      ? `<span>dataset: <a href="${REPO_BASE}/datasets/${esc(a.dataset)}/README.md" target="_blank" rel="noopener">${esc(a.dataset)}</a></span>`
+      : "";
+    const nbLink = a.notebook
+      ? `<span>notebook: <a href="${REPO_BASE}/notebooks/${esc(a.notebook)}/README.md" target="_blank" rel="noopener">${esc(a.notebook)}</a></span>`
+      : "";
+    return `
+      <div class="name"><a href="${REPO_BASE}/${a.readme_path}" target="_blank" rel="noopener">${esc(a.name)}</a></div>
+      <div class="desc">${esc(a.description || "")}</div>
+      <div class="meta">
+        <span>v${esc(a.version || "")}</span>
+        ${a.framework ? `<span>${esc(a.framework)}</span>` : ""}
+        ${a.model ? `<span>${esc(a.model)}</span>` : ""}
+        ${dsLink}
+        ${nbLink}
+        ${a.date_added ? `<span>added ${esc(a.date_added)}</span>` : ""}
+      </div>
+      ${(a.tools && a.tools.length) ? `<div class="files"><span class="flabel">Tools:</span> ${a.tools.map(t => `<span class="fname">${esc(t)}</span>`).join(" ")}</div>` : ""}
+      ${a.guardrails ? `<div class="desc"><strong>Guardrail:</strong> ${esc(a.guardrails)}</div>` : ""}
+      ${a.open_in_colab ? `<div class="colab"><a href="${esc(a.open_in_colab)}" target="_blank" rel="noopener"><img src="${COLAB_BADGE}" alt="Open In Colab"></a></div>` : ""}
+      ${(a.tags && a.tags.length) ? `<div class="tags">${a.tags.map(t => `<span class="chip">${esc(t)}</span>`).join("")}</div>` : ""}
+    `;
+  }
+
+  const CARD = { datasets: datasetCard, notebooks: notebookCard, agents: agentCard };
+  const TABS = ["datasets", "notebooks", "agents"];
+
+  function currentItems() { return state[state.tab]; }
 
   function render(items) {
     listEl.innerHTML = "";
@@ -166,7 +196,7 @@
     for (const it of items) {
       const li = document.createElement("li");
       li.className = "ds";
-      li.innerHTML = state.tab === "datasets" ? datasetCard(it) : notebookCard(it);
+      li.innerHTML = CARD[state.tab](it);
       listEl.appendChild(li);
     }
   }
@@ -176,27 +206,27 @@
     const items = currentItems();
     if (!q) return render(items);
     render(items.filter(it =>
-      (it.name + " " + (it.description || "") + " "
-        + (it.tags || []).join(" ") + " " + (it.libraries || []).join(" "))
+      (it.name + " " + (it.description || "") + " " + (it.tags || []).join(" ")
+        + " " + (it.libraries || []).join(" ") + " " + (it.tools || []).join(" "))
         .toLowerCase().includes(q)));
   }
 
   function selectTab(tab) {
     state.tab = tab;
-    document.getElementById("tab-datasets").setAttribute("aria-selected", tab === "datasets");
-    document.getElementById("tab-notebooks").setAttribute("aria-selected", tab === "notebooks");
+    for (const t of TABS)
+      document.getElementById("tab-" + t).setAttribute("aria-selected", tab === t);
     searchEl.placeholder = `Filter ${tab} by name, tag or description…`;
     applyFilter();
   }
 
-  document.getElementById("tab-datasets").addEventListener("click", () => selectTab("datasets"));
-  document.getElementById("tab-notebooks").addEventListener("click", () => selectTab("notebooks"));
+  for (const t of TABS)
+    document.getElementById("tab-" + t).addEventListener("click", () => selectTab(t));
   searchEl.addEventListener("input", applyFilter);
 
   function updateSubtitle() {
-    const d = state.loaded.datasets ? `${state.datasets.length} dataset(s)` : "…";
-    const n = state.loaded.notebooks ? `${state.notebooks.length} notebook(s)` : "…";
-    subtitleEl.textContent = `${d} · ${n}`;
+    const part = (k, w) => state.loaded[k] ? `${state[k].length} ${w}(s)` : "…";
+    subtitleEl.textContent =
+      `${part("datasets", "dataset")} · ${part("notebooks", "notebook")} · ${part("agents", "agent")}`;
   }
 
   function load(name, key) {
@@ -219,9 +249,10 @@
       });
   }
 
-  // Datasets first (default tab), notebooks in parallel.
+  // Datasets first (default tab), notebooks and agents in parallel.
   load("datasets.json", "datasets");
   load("notebooks.json", "notebooks");
+  load("agents.json", "agents");
 </script>
 </body>
 </html>
