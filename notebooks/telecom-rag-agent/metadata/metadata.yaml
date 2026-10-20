@@ -26,6 +26,6 @@ results: ''
 notes: ''
 files:
 - path: notebook/Telecom_RAG_Agent.ipynb
-  bytes: 5141
-  sha256: ed4a40b57f026200e7fa5be94f048e14c1184fb7c3438b6334d333baf0ccb864
+  bytes: 5568
+  sha256: 0aa4f8b1b2eca97902d06891aeb6096a8de61f6860c77cba12de930603129053
   format: ipynb

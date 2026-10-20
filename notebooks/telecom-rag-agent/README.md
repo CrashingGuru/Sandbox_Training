@@ -28,7 +28,7 @@ Companion notebook for the Telecom RAG Agent: loads the packaged agent.py, wires
 
 | File | Size | View |
 |------|------|------|
-| `Telecom_RAG_Agent.ipynb` | 5.0 KB | [open](https://github.com/CrashingGuru/Sandbox_Training/blob/main/notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb) |
+| `Telecom_RAG_Agent.ipynb` | 5.4 KB | [open](https://github.com/CrashingGuru/Sandbox_Training/blob/main/notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb) |
 
 ---
 

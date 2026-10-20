@@ -28,7 +28,7 @@ Agentic RAG reference for the TeleQnA telecom benchmark: a retriever (all-MiniLM
 
 | File | Size | View |
 |------|------|------|
-| `TeleQnA_Agentic_RAG_Reference.ipynb` | 8.7 KB | [open](https://github.com/CrashingGuru/Sandbox_Training/blob/main/notebooks/teleqna-agentic-rag-reference/notebook/TeleQnA_Agentic_RAG_Reference.ipynb) |
+| `TeleQnA_Agentic_RAG_Reference.ipynb` | 9.1 KB | [open](https://github.com/CrashingGuru/Sandbox_Training/blob/main/notebooks/teleqna-agentic-rag-reference/notebook/TeleQnA_Agentic_RAG_Reference.ipynb) |
 
 ---
 

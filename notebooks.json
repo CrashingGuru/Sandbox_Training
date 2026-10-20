@@ -125,7 +125,7 @@
         {
           "name": "Telecom_RAG_Agent.ipynb",
           "path": "notebooks/telecom-rag-agent/notebook/Telecom_RAG_Agent.ipynb",
-          "bytes": 5141
+          "bytes": 5568
         }
       ],
       "readme_path": "notebooks/telecom-rag-agent/README.md",
@@ -159,7 +159,7 @@
         {
           "name": "TeleQnA_Agentic_RAG_Reference.ipynb",
           "path": "notebooks/teleqna-agentic-rag-reference/notebook/TeleQnA_Agentic_RAG_Reference.ipynb",
-          "bytes": 8872
+          "bytes": 9299
         }
       ],
       "readme_path": "notebooks/teleqna-agentic-rag-reference/README.md",
